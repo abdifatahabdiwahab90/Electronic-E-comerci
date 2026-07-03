@@ -1,70 +1,28 @@
-
-
-import {
-  FaLaptop,
-  FaMobileAlt,
-  FaHeadphones,
-  FaCamera,
-  FaGamepad,
-  FaClock,
-} from "react-icons/fa";
+import React from 'react';
 
 const categories = [
-  {
-    id: 1,
-    title: "Laptops",
-    icon: <FaLaptop size={40} />,
-  },
-  {
-    id: 2,
-    title: "Smartphones",
-    icon: <FaMobileAlt size={40} />,
-  },
-  {
-    id: 3,
-    title: "Headphones",
-    icon: <FaHeadphones size={40} />,
-  },
-  {
-    id: 4,
-    title: "Cameras",
-    icon: <FaCamera size={40} />,
-  },
-  {
-    id: 5,
-    title: "Gaming",
-    icon: <FaGamepad size={40} />,
-  },
-  {
-    id: 6,
-    title: "Smart Watches",
-    icon: <FaClock size={40} />,
-  },
+  { name: 'Laptops', image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=150&auto=format&fit=crop&q=60', count: '140+ Items', color: 'bg-blue-50' },
+  { name: 'Smartphones', image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=150&auto=format&fit=crop&q=60', count: '85+ Items', color: 'bg-emerald-50' },
+  { name: 'Headphones', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&auto=format&fit=crop&q=60', count: '62+ Items', color: 'bg-purple-50' },
+  { name: 'Smartwatches', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&auto=format&fit=crop&q=60', count: '48+ Items', color: 'bg-orange-50' },
+  { name: 'Gaming', image: 'https://images.unsplash.com/photo-1600861195091-690c92f1d2cc?w=150&auto=format&fit=crop&q=60', count: '30+ Items', color: 'bg-pink-50' },
+  { name: 'Cameras', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150&auto=format&fit=crop&q=60', count: '22+ Items', color: 'bg-teal-50' },
 ];
 
-function Categories() {
+export default function Categories() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
-      <div className="text-center mb-10">
-        <h2 className="text-4xl font-bold">Shop by Category</h2>
-        <p className="text-gray-500 mt-2">
-          Find your favorite electronic products.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {categories.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white shadow-md rounded-xl p-6 flex flex-col items-center hover:bg-blue-600 hover:text-white transition duration-300 cursor-pointer"
-          >
-            {item.icon}
-            <h3 className="mt-4 font-semibold">{item.title}</h3>
+    <section className="py-12 px-6 max-w-7xl mx-auto text-center">
+      <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Categories</span>
+      <h2 className="text-2xl md:text-3xl font-bold mt-1 mb-8">Shop Our Collections</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        {categories.map((cat, i) => (
+          <div key={i} className={`p-4 rounded-2xl border border-gray-100 ${cat.color} hover:shadow-md transition duration-300 cursor-pointer flex flex-col items-center justify-center`}>
+            <img src={cat.image} alt={cat.name} className="w-12 h-12 rounded-full object-cover mb-3 mix-blend-multiply" />
+            <h3 className="font-semibold text-sm text-gray-800">{cat.name}</h3>
+            <p className="text-xs text-gray-500 mt-1">{cat.count}</p>
           </div>
         ))}
       </div>
     </section>
   );
 }
-
-export default Categories;

@@ -1,12 +1,12 @@
 import { Home } from "./Pages/Home";
 import About from "./Pages/About";
 import Products from "./Pages/Products";
-import Contact from "./Pages/Contact";
 import Blog from "./Pages/Blog";
 import Header from "./componant/Header";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
-import Wishlist from "./Pages/Wishlist";
+import Wishlist from "./Pages/Wishlist"
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
