@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
+import { MdFavorite } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 
@@ -31,6 +31,11 @@ const cartItems = useSelector((state) => state.cart.cartItems);
               Products
             </Link>
           </li>
+          <li>
+            <Link to="/blog" className="hover:text-blue-600 duration-300">
+              Blogs
+            </Link>
+          </li>
 
           <li>
             <Link to="/about" className="hover:text-blue-600 duration-300">
@@ -48,9 +53,9 @@ const cartItems = useSelector((state) => state.cart.cartItems);
         {/* Icons */}
         <div className="flex items-center gap-5">
 
-          <button>
-            <FaSearch className="text-xl cursor-pointer hover:text-blue-600" />
-          </button>
+          <Link to="/wishlist" className="relative">
+            <MdFavorite className="text-2xl hover:text-blue-600" />
+          </Link>
 
           <Link to="/cart" className="relative">
             <FaShoppingCart className="text-2xl hover:text-blue-600" />

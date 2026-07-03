@@ -6,7 +6,7 @@ const products = [
     category: "Laptop",
     price: 1299,
     rating: 4.9,
-    image: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=800",
+    image: "https://i.pinimg.com/736x/23/40/a1/2340a1d077e3c258d85c5e6142209e93.jpg",
   },
   {
     id: 2,
