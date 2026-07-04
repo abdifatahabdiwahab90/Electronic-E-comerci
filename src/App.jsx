@@ -7,11 +7,13 @@ import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
 import Wishlist from "./Pages/Wishlist"
 import Contact from "./Pages/Contact";
+import Footer from "./componant/Footer";
 
 function App() {
   return (
     <>
       <Header />
+     
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -21,6 +23,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+       <Footer />
     </>
   );
 }

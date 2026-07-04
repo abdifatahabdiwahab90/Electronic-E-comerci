@@ -1,6 +1,6 @@
 import Categories from "../componant/Categories"
 import Hero from "../componant/Hero"
-import WishlistHome from "../componant/WishlistHome"
+import Favorites from "../componant/Favorites"
 import NewProduct from "../componant/NewProduct"
 import Testimonials from "../componant/Testimonials"
 
@@ -12,7 +12,7 @@ export function Home() {
     <Categories />
     <FeaturedProducts />
     <NewProduct />
-    <WishlistHome />
+    <Favorites />
     <Testimonials />
    
     </>
