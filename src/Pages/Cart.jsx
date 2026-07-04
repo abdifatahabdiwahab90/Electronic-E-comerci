@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; // 1. Waxaan soo innihay useNavigate
 import {
   removeFromCart,
   increaseQty,
@@ -9,6 +10,7 @@ import { FaTrash, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-ico
 
 function Cart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // 2. Waxaan halkan ku dhalinnay navigate
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const totalPrice = cartItems.reduce(
@@ -25,9 +27,13 @@ function Cart() {
         </div>
         <h1 className="text-3xl font-extrabold text-gray-800">Dambiishaadu waa maran tahay</h1>
         <p className="mt-3 text-gray-500 text-lg max-w-md">
-          U noqo dukaanka weyn si aad u soo iibsato alaabada aad u baahan tahay.
+          U noqo dukaanka weyn si aad u soo iibsato alaabada aad u baahan tehay.
         </p>
-        <button className="mt-8 bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 font-medium transition shadow-lg shadow-blue-200">
+        {/* 3. "Sii wad Adeegashada" wuxuu kuu celinayaa bogga Categories/Shop */}
+        <button 
+          onClick={() => navigate('/categories')} 
+          className="mt-8 bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 font-medium transition shadow-lg shadow-blue-200"
+        >
           Sii wad Adeegashada
         </button>
       </div>
@@ -51,17 +57,21 @@ function Cart() {
               className="flex flex-col sm:flex-row items-center justify-between bg-white border border-gray-100 shadow-sm hover:shadow-md rounded-2xl p-5 gap-4 transition"
             >
               {/* Sawirka iyo Magaca */}
-              <div className="flex items-center gap-5 w-full sm:w-auto">
+              {/* 4. Marka la gujiyo sawirka ama magaca wuxuu toos u geynayaa bogga ProductView */}
+              <div 
+                onClick={() => navigate(`/products/${item.id}`)} 
+                className="flex items-center gap-5 w-full sm:w-auto cursor-pointer group"
+              >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl bg-gray-50 border border-gray-100"
+                  className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl bg-gray-50 border border-gray-100 group-hover:scale-105 transition duration-300"
                 />
                 <div className="min-w-0">
-                  <h2 className="text-lg font-bold text-gray-800 truncate sm:whitespace-normal">
+                  <h2 className="text-lg font-bold text-gray-800 truncate sm:whitespace-normal group-hover:text-blue-600 transition">
                     {item.name}
                   </h2>
-                  <p className="text-blue-650 font-bold text-xl mt-1">
+                  <p className="text-blue-600 font-bold text-xl mt-1">
                     ${item.price}
                   </p>
                 </div>
@@ -116,7 +126,7 @@ function Cart() {
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Nooliga/Kariinka:</span>
-              <span className="text-green-650 font-medium">Bilaash (Free)</span>
+              <span className="text-green-600 font-medium">Bilaash (Free)</span>
             </div>
             
             <div className="border-t border-gray-200 my-4 pt-4 flex justify-between items-baseline">

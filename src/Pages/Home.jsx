@@ -1,4 +1,4 @@
-import Categories from "../componant/Categories"
+import Categories from "../componant/FeaturedCategories"
 import Hero from "../componant/Hero"
 import Favorites from "../componant/Favorites"
 import NewProduct from "../componant/NewProduct"

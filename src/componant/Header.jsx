@@ -13,7 +13,6 @@ const cartItems = useSelector((state) => state.cart.cartItems);
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        {/* Logo */}
         <Link to="/" className="text-3xl font-bold text-blue-600">
           Electro<span className="text-gray-900">Shop</span>
         </Link>
@@ -27,8 +26,14 @@ const cartItems = useSelector((state) => state.cart.cartItems);
           </li>
 
           <li>
-            <Link to="/products" className="hover:text-blue-600 duration-300">
-              Products
+            <Link to="/product" className="hover:text-blue-600 duration-300">
+              Shop
+            </Link>
+          </li>
+            
+          <li>
+            <Link to="/categories" className="hover:text-blue-600 duration-300">
+              Categories
             </Link>
           </li>
           <li>
