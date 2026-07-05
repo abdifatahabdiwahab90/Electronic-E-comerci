@@ -11,10 +11,10 @@ const ProductView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
 
-  // 1. Soo hel alaabta saxda ah ee la gujiyay
+  
   const product = productsData.find((p) => String(p.id) === String(productId));
 
-  // 2. Sifee alaabta la midka ah (Related Products) ee isku Category-ga ah
+  
   const relatedProducts = product
     ? productsData.filter((p) => String(p.catId) === String(product.catId) && String(p.id) !== String(product.id)).slice(0, 4)
     : [];
@@ -25,12 +25,12 @@ const ProductView = () => {
   const [mainImage, setMainImage] = useState('');
   const [quantity, setQuantity] = useState(1);
 
-  // Marka productId isbeddelo, dib u dhowr sawirka weyn iyo tirada
+ 
   useEffect(() => {
     if (product) {
       setMainImage(product.image);
       setQuantity(1);
-      window.scrollTo(0, 0); // Bogga kor u qaad marka alaab cusub la gujiyo
+      window.scrollTo(0, 0); 
     }
   }, [productId, product]);
 
@@ -53,10 +53,10 @@ const ProductView = () => {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-4 md:p-12">
       <div className="max-w-6xl mx-auto">
         
-        {/* Main Product Layout */}
+    
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
           
-          {/* BIDIX: Sawirada (Image Gallery) */}
+      
           <div className="flex flex-col gap-4">
             <div className="bg-white border border-slate-200 rounded-2xl p-6 flex items-center justify-center h-[400px] md:h-[500px] overflow-hidden">
               <img src={mainImage} alt={product.name} className="max-h-full max-w-full object-contain transition-all duration-300" />
@@ -76,7 +76,7 @@ const ProductView = () => {
             </div>
           </div>
 
-          {/* MIDIG: Faahfaahinta Alaabta */}
+      
           <div className="flex flex-col h-full justify-center">
             <span className="text-xs text-blue-600 font-bold uppercase tracking-widest">{product.brand}</span>
             <h1 className="text-3xl font-black mt-1 text-slate-900 leading-tight">{product.name}</h1>
@@ -119,7 +119,7 @@ const ProductView = () => {
           </div>
         </div>
 
-        {/* Related Products Section */}
+       
         {relatedProducts.length > 0 && (
           <div className="border-t border-slate-200 pt-16">
             <h2 className="text-2xl font-black mb-8 text-slate-900 tracking-tight flex items-center gap-2">
@@ -135,14 +135,13 @@ const ProductView = () => {
                   className="bg-white border border-slate-200 rounded-2xl p-4 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col justify-between"
                 >
                   <div>
-                    {/* Image Area */}
+               
                     <div className="relative bg-slate-50 h-40 rounded-xl flex items-center justify-center overflow-hidden mb-3 p-3">
                       <img 
                         src={item.image} 
                         alt={item.name} 
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500" 
                       />
-                      {/* Hover Quick View Icon */}
                       <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span className="bg-white border border-slate-200 p-2.5 rounded-full text-blue-600 shadow-sm"><FaEye size={14} /></span>
                       </div>
@@ -154,7 +153,7 @@ const ProductView = () => {
                     </h3>
                   </div>
 
-                  {/* Price Area */}
+           
                   <div className="flex items-center justify-between mt-4 pt-2 border-t border-slate-100">
                     <span className="text-base font-black text-slate-900">${item.price.toLocaleString()}</span>
                     <button 

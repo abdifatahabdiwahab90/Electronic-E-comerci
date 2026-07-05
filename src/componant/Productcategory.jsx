@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { productsData, categoriesData } from '../data/category'; 
-import { useDispatch, useSelector } from "react-redux"; // Waxaan ku darnay useSelector si loo ogaado isFavorite
+import { useDispatch, useSelector } from "react-redux"; 
 import { addToCart } from "../redux/cartSlice";
 import { toggleWishlist } from "../redux/wishlistSlice"; 
 import { FaStar, FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
@@ -11,7 +11,6 @@ const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Soo aqri liiska wishlist-ka si aad u ogaato alaabta wadnaheedu gaduudanayo
   const wishlistItems = useSelector((state) => state.wishlist.items || []);
 
   const currentCategory = categoriesData.find(c => String(c.id) === String(categoryId));
@@ -39,7 +38,6 @@ const Products = () => {
     }
   };
 
-  // --- Filtering Logic ---
   const filteredProducts = productsData.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || String(product.catId) === String(selectedCategory);
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -51,7 +49,6 @@ const Products = () => {
     return matchesCategory && matchesSearch && matchesBrand && matchesPrice && matchesRating;
   });
 
-  // --- Sorting Logic ---
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === 'low-to-high') return a.price - b.price;
     if (sortBy === 'high-to-low') return b.price - a.price;
@@ -64,7 +61,6 @@ const Products = () => {
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         
-        {/* Breadcrumb iyo Header */}
         <div className="flex items-center gap-2 text-sm text-slate-400 mb-6 font-medium">
           <span className="cursor-pointer hover:text-blue-600" onClick={() => navigate('/')}>🏠 Home</span>
           <span>&gt;</span>
@@ -77,7 +73,6 @@ const Products = () => {
           )}
         </div>
 
-        {/* Top Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-white p-4 rounded-2xl border border-slate-200">
           <p className="text-slate-500 text-sm font-medium">
             Showing <span className="text-slate-900 font-black">{sortedProducts.length}</span> products
@@ -95,10 +90,8 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Main Content Layout */}
         <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* BIDIX: Sidebar Filters */}
           <div className="w-full lg:w-64 bg-white border border-slate-200 rounded-2xl p-5 h-fit sticky top-6">
             <h3 className="text-lg font-black text-slate-900 mb-5 flex items-center justify-between">
               Filters
@@ -112,7 +105,6 @@ const Products = () => {
               )}
             </h3>
 
-            {/* Search Input */}
             <div className="mb-5">
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Search</label>
               <input 
@@ -124,7 +116,6 @@ const Products = () => {
               />
             </div>
 
-            {/* Category Dropdown */}
             <div className="mb-5">
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Category</label>
               <select 
@@ -139,7 +130,6 @@ const Products = () => {
               </select>
             </div>
 
-            {/* Brand Dropdown */}
             <div className="mb-5">
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
               <select 
@@ -153,7 +143,6 @@ const Products = () => {
               </select>
             </div>
 
-            {/* Price Range */}
             <div className="mb-5">
               <div className="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                 <span>Price</span>
@@ -170,7 +159,6 @@ const Products = () => {
               />
             </div>
 
-            {/* Min Rating */}
             <div className="mb-5">
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Min Rating</label>
               <select 
@@ -186,7 +174,6 @@ const Products = () => {
             </div>
           </div>
 
-          {/* MIDIG: Product Grid */}
           <div className="flex-1">
             {sortedProducts.length === 0 ? (
               <div className="text-center text-slate-400 py-20 bg-white rounded-3xl border border-slate-200">
@@ -196,7 +183,6 @@ const Products = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {sortedProducts.map((product) => {
-                  // Hubi haddii alaabtan ay ku jirto wishlist-ka
                   const isWishlisted = wishlistItems.some((item) => item.id === product.id);
 
                   return (
@@ -206,7 +192,6 @@ const Products = () => {
                       className="bg-white border border-slate-200 rounded-2xl overflow-hidden cursor-pointer p-4 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
                     >
                       <div>
-                        {/* Container-ka Sawirka */}
                         <div className="relative bg-slate-50 h-56 rounded-xl flex items-center justify-center overflow-hidden mb-4 p-4">
                           {product.badge && (
                             <span className={`absolute top-3 left-3 text-[9px] font-black px-2 py-0.5 rounded-md z-10 tracking-wider uppercase ${
@@ -216,7 +201,6 @@ const Products = () => {
                             </span>
                           )}
                           
-                          {/* Badhamada Wishlist iyo Eye */}
                           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                             <button 
                               onClick={(e) => { 
@@ -247,7 +231,6 @@ const Products = () => {
                             className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500" 
                           />
 
-                          {/* Quick Add Button (Add to Cart) */}
                           <div className="absolute inset-x-4 bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                             <button 
                               onClick={(e) => {
@@ -266,7 +249,6 @@ const Products = () => {
                           {product.name}
                         </h3>
 
-                        {/* Stars Display */}
                         <div className="flex items-center gap-1.5 mt-2">
                           <div className="flex text-amber-400 text-xs gap-0.5">
                             {Array.from({ length: 5 }).map((_, i) => (
@@ -277,7 +259,6 @@ const Products = () => {
                         </div>
                       </div>
 
-                      {/* Qaybta Qiimaha */}
                       <div className="flex items-center justify-between mt-5 pt-3 border-t border-slate-100">
                         <div className="flex items-baseline gap-2">
                           <span className="text-xl font-black text-slate-900">${product.price.toLocaleString()}</span>
@@ -304,4 +285,4 @@ const Products = () => {
   );
 };
 
-export default Products;  
+export default Products;

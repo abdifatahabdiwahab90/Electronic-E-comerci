@@ -3,10 +3,50 @@
 import React from 'react';
 
 const mockProducts = [
-  { id: 1, name: "Premium Ultra Laptop 15", price: "$1,299", rating: "4.9", reviews: "128", tag: "Hot Sale", badgeColor: "bg-red-500", icon: "💻" },
-  { id: 2, name: "Flagship Smartphone Pro", price: "$999", rating: "4.8", reviews: "94", tag: "New", badgeColor: "bg-green-500", icon: "📱" },
-  { id: 3, name: "Studio ANC Headphones", price: "$299", rating: "4.7", reviews: "215", tag: "-15% OFF", badgeColor: "bg-amber-500", icon: "🎧" },
-  { id: 4, name: "E-Sport Smartwatch GPS", price: "$199", rating: "4.6", reviews: "83", tag: "Popular", badgeColor: "bg-purple-500", icon: "⌚" },
+  {
+    id: 1,
+    name: "Premium Ultra Laptop 15",
+    price: "$1,299",
+    rating: "4.9",
+    reviews: "128",
+    tag: "Hot Sale",
+    badgeColor: "bg-red-500",
+    image:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 2,
+    name: "Flagship Smartphone Pro",
+    price: "$999",
+    rating: "4.8",
+    reviews: "94",
+    tag: "New",
+    badgeColor: "bg-green-500",
+    image:
+      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    name: "Studio ANC Headphones",
+    price: "$299",
+    rating: "4.7",
+    reviews: "215",
+    tag: "-15% OFF",
+    badgeColor: "bg-amber-500",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 4,
+    name: "E-Sport Smartwatch GPS",
+    price: "$199",
+    rating: "4.6",
+    reviews: "83",
+    tag: "Popular",
+    badgeColor: "bg-purple-500",
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+  },
 ];
 
 export default function NewProduct({ title, subtitle, showViewAll = false, columns = 4 }) {
@@ -28,21 +68,20 @@ export default function NewProduct({ title, subtitle, showViewAll = false, colum
                 {product.tag}
               </span>
             </div>
-            <div className="h-48 bg-gray-100 flex items-center justify-center text-5xl group-hover:scale-105 transition duration-300">
-              {product.icon}
-            </div>
+          <div className="h-64 w-full overflow-hidden rounded-t-2xl">
+  <img
+    src={product.image}
+    alt={product.name}
+    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+  />
+</div>
             <div className="p-4 space-y-2">
               <span className="text-[11px] text-gray-400 font-medium tracking-wide uppercase">Electronics</span>
               <h3 className="font-semibold text-gray-800 text-sm line-clamp-1">{product.name}</h3>
               <div className="flex items-center gap-1 text-xs text-amber-500 font-medium">
                 ★ <span className="text-gray-700">{product.rating}</span> <span className="text-gray-400">({product.reviews})</span>
               </div>
-              <div className="flex justify-between items-center pt-2">
-                <span className="font-bold text-base text-gray-900">{product.price}</span>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition">
-                  Add To Cart
-                </button>
-              </div>
+          
             </div>
           </div>
         ))}

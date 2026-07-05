@@ -17,7 +17,7 @@ const cartItems = useSelector((state) => state.cart.cartItems);
           Electro<span className="text-gray-900">Shop</span>
         </Link>
 
-        {/* Desktop Menu */}
+        
         <ul className="hidden md:flex items-center gap-8 font-medium">
           <li>
             <Link to="/" className="hover:text-blue-600 duration-300">
@@ -37,8 +37,8 @@ const cartItems = useSelector((state) => state.cart.cartItems);
             </Link>
           </li>
           <li>
-            <Link to="/blog" className="hover:text-blue-600 duration-300">
-              Blogs
+            <Link to="/productDetails" className="hover:text-blue-600 duration-300">
+              ProductDetails
             </Link>
           </li>
 
@@ -55,7 +55,7 @@ const cartItems = useSelector((state) => state.cart.cartItems);
           </li>
         </ul>
 
-        {/* Icons */}
+      
         <div className="flex items-center gap-5">
 
           <Link to="/wishlist" className="relative">
@@ -74,7 +74,7 @@ const cartItems = useSelector((state) => state.cart.cartItems);
             Login
           </button>
 
-          {/* Mobile Menu */}
+        
           <button className="md:hidden">
             <FaBars className="text-2xl" />
           </button>

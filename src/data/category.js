@@ -14,7 +14,7 @@ export const categoriesData = [
 ];
 
 export const productsData = [
-  // ==================== 1. SMARTPHONES ====================
+  
   {
     id: "p-101",
     catId: "cat-1",
@@ -79,7 +79,7 @@ export const productsData = [
     description: "Redefined flagship smartphone delivering elite performance with Snapdragon 8 Gen 3, advanced 4th Gen Hasselblad Camera for Mobile, and 100W SUPERVOOC charging."
   },
 
-  // ==================== 2. LAPTOPS ====================
+
   {
     id: "p-201",
     catId: "cat-2",
@@ -146,7 +146,7 @@ export const productsData = [
     description: "Premium ultraportable laptop featuring a gorgeous 2.8K OLED HDR display, slim elegant metal body, and Intel Evo performance."
   },
 
-  // ==================== 3. GAMING ====================
+
   {
     id: "p-301",
     catId: "cat-3",
@@ -206,7 +206,7 @@ export const productsData = [
     description: "Ultra-lightweight wireless ergonomic esports gaming mouse engineered with cutting-edge optical sensors for professional accuracy."
   },
 
-  // ==================== 4. CAMERAS ====================
+
   {
     id: "p-401",
     catId: "cat-4",
@@ -267,7 +267,6 @@ export const productsData = [
     description: "Pocket-sized stabilized vlogging camera with a powerful 1-inch CMOS sensor, rotating touchscreen, and ultra-fast full-pixel focus."
   },
 
-  // ==================== 5. TABLETS ====================
   {
     id: "p-501",
     catId: "cat-5",
@@ -325,7 +324,7 @@ export const productsData = [
     description: "High performance for work and play with Snapdragon 8+ Gen 1 processor, ultra-smooth 144Hz WQHD+ display, and long battery life."
   },
 
-  // ==================== 6. SMART WATCHES ====================
+
   {
     id: "p-601",
     catId: "cat-6",
@@ -383,7 +382,7 @@ export const productsData = [
     description: "Classic round design smart watch with dual-band circular-polarized GPS navigation, ultra-long 14-day battery life, and comprehensive fitness tracking."
   },
 
-  // ==================== 7. TVs ====================
+  
   {
     id: "p-701",
     catId: "cat-7",
@@ -441,7 +440,7 @@ export const productsData = [
     description: "Premium performance at an unbeatable price, complete with 144Hz native refresh rate for smooth action movies and gaming."
   },
 
-  // ==================== 8. HEADPHONES ====================
+
   {
     id: "p-801",
     catId: "cat-8",
@@ -499,7 +498,7 @@ export const productsData = [
     description: "Incredible value double-layer diaphragm headphones reducing ambient background noise by up to 98% on long commutes."
   },
 
-  // ==================== 9. SPEAKERS ====================
+ 
   {
     id: "p-901",
     catId: "cat-9",
@@ -557,7 +556,7 @@ export const productsData = [
     description: "Immersive 360-degree thundering bass output engineered completely dropproof and floats safely in water pools."
   },
 
-  // ==================== 10. ACCESSORIES ====================
+
   {
     id: "p-1001",
     catId: "cat-10",
@@ -615,7 +614,7 @@ export const productsData = [
     description: "15 customizable studio macro keys ready to automate streaming setups, app hotkeys, and content creation tasks instantly."
   },
 
-  // ==================== 11. HOME APPLIANCES ====================
+ 
   {
     id: "p-1101",
     catId: "cat-11",
@@ -673,7 +672,7 @@ export const productsData = [
     description: "Countertop convection oven utilizing Element IQ technology to precisely roast, bake, slow-cook, and airfry foods perfectly."
   },
 
-  // ==================== 12. NETWORKING ====================
+
   {
     id: "p-1201",
     catId: "cat-12",

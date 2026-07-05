@@ -1,217 +1,158 @@
 import { useState } from "react";
-import { productsData, categoriesData } from "../data/category"; 
+import {
+  FaSearch,
+  FaThLarge,
+  FaList,
+} from "react-icons/fa";
+
+import products from "../data/products";// Double check your spelling here if it fails to compile ("component" vs "componant")
+
 import ProductCard from "../componant/ProductCard";
-
-// Fiiro gaar ah: Haddii aad isticmaalayso React Router, waxaad soo dhoofsan kartaa useNavigate
-// import { useNavigate } from "react-router-dom";
-
-function Product({ addToCart, toggleWishlist, wishlist = [] }) {
-  // const navigate = useNavigate();
-  
+export default function Products() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [brand, setBrand] = useState("All");
-  const [maxPrice, setMaxPrice] = useState(3000); 
-  const [minRating, setMinRating] = useState("All");
-  const [inStockOnly, setInStockOnly] = useState(false);
-  const [sortBy, setSortBy] = useState("Popular");
+  const [sort, setSort] = useState("Popular");
+  const [view, setView] = useState("grid");
 
-  // --- Sifaynta Xogta (Filtering Logic) ---
-  const filteredProducts = productsData.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase()) ||
-                          product.brand.toLowerCase().includes(search.toLowerCase());
+  const categories = [
+    "All",
+    ...new Set(products.map((item) => item.category)),
+  ];
 
-    const matchesCategory = category === "All" || String(product.catId) === String(category);
-    const matchesBrand = brand === "All" || (product.brand && product.brand.toLowerCase() === brand.toLowerCase());
-    const matchesPrice = product.price <= maxPrice;
-    const matchesRating = minRating === "All" || product.rating >= parseFloat(minRating);
-    const matchesStock = !inStockOnly || product.badge !== "OUT OF STOCK"; 
+  const filteredProducts = [...products]
+    .filter((item) => {
+      const matchSearch = item.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    return matchesSearch && matchesCategory && matchesBrand && matchesPrice && matchesRating && matchesStock;
-  });
+      const matchCategory =
+        category === "All" || item.category === category;
 
-  // --- Kala Mudnaanta (Sorting Logic) ---
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === "Low to High") return a.price - b.price;
-    if (sortBy === "High to Low") return b.price - a.price;
-    return b.rating - a.rating; 
-  });
-
-  const uniqueBrands = ["All", ...new Set(productsData.map((p) => p.brand).filter(Boolean))];
-
-  // --- Function-ka loo isticmaalayo in loogu gudbo View Page ---
-  const handleViewProduct = (productId) => {
-    console.log(`U gudub bogga faahfaahinta alaabta: ${productId}`);
-    // Haddii aad router isticmaalayso: navigate(`/product/${productId}`);
-  };
+      return matchSearch && matchCategory;
+    })
+    .sort((a, b) => {
+      if (sort === "Low to High") return a.price - b.price;
+      if (sort === "High to Low") return b.price - a.price;
+      if (sort === "Rating") return b.rating - a.rating;
+      return 0;
+    });
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-slate-100 min-h-screen py-10">
+      <div className="max-w-7xl mx-auto px-5">
         
-        {/* Breadcrumb / Jidka Bogga */}
-        <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
-          <span className="cursor-pointer hover:text-blue-600">🏠 Home</span>
-          <span>&gt;</span>
-          <span className="text-blue-600 font-medium">Shop</span>
-        </div>
-
-        {/* Top Bar (Natiijada iyo Kala-doorashada Sort-ga) */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-slate-200">
-          <p className="text-slate-500 text-sm font-medium">
-            We found <span className="text-slate-900 font-bold">{sortedProducts.length}</span> products for you
+        {/* Banner Section */}
+        <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 rounded-3xl p-10 text-white mb-8">
+          <h1 className="text-5xl font-bold">Discover Premium Electronics</h1>
+          <p className="mt-4 text-blue-100 max-w-2xl leading-8">
+            Shop laptops, smartphones, gaming consoles, cameras, headphones and
+            accessories from the world's leading brands.
           </p>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-slate-500">Sort by:</span>
-            <select 
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-white border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm"
-            >
-              <option value="Popular">Most Popular</option>
-              <option value="Low to High">Price: Low to High</option>
-              <option value="High to Low">Price: High to Low</option>
-            </select>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5">
+              <h2 className="text-4xl font-bold">20+</h2>
+              <p className="text-blue-100">Products</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5">
+              <h2 className="text-4xl font-bold">{categories.length - 1}</h2>
+              <p className="text-blue-100">Categories</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5">
+              <h2 className="text-4xl font-bold">4.9★</h2>
+              <p className="text-blue-100">Average Rating</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5">
+              <h2 className="text-4xl font-bold">100%</h2>
+              <p className="text-blue-100">Genuine Products</p>
+            </div>
           </div>
         </div>
 
-        {/* Main Layout: Sidebar (Bidix) + Products Grid (Midig) */}
-        <div className="flex flex-col lg:flex-row gap-8">
-          
-          {/* BIDIX: Sidebar Filters (Caddaan) */}
-          <div className="w-full lg:w-64 bg-white border border-slate-200 rounded-2xl p-5 h-fit sticky top-6 shadow-sm">
-            <h3 className="text-lg font-bold text-slate-900 mb-5 flex items-center justify-between">
-              Filters
-              {(search || category !== "All" || brand !== "All" || maxPrice !== 3000 || minRating !== "All" || inStockOnly) && (
-                <button 
-                  onClick={() => { setSearch(""); setCategory("All"); setBrand("All"); setMaxPrice(3000); setMinRating("All"); setInStockOnly(false); }}
-                  className="text-xs text-red-500 hover:underline font-medium"
-                >
-                  Clear All
-                </button>
-              )}
-            </h3>
-
-            {/* 1. Search */}
-            <div className="mb-5">
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Search Product</label>
+        {/* Filter & Search Controls */}
+        <div className="bg-white rounded-3xl shadow-xl p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+            
+            {/* Search Input */}
+            <div className="relative lg:col-span-2">
+              <FaSearch className="absolute left-5 top-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search name or brand..."
-                className="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-blue-500 focus:bg-white placeholder-slate-400 text-slate-800"
+                placeholder="Search products..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                className="w-full border rounded-2xl py-4 pl-14 pr-5 outline-none focus:border-blue-600"
               />
             </div>
 
-            {/* 2. Category */}
-            <div className="mb-5">
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Category</label>
-              <select
-                className="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:bg-white cursor-pointer text-slate-700"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+            {/* Category Select */}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="border rounded-2xl px-5 py-4 bg-transparent outline-none focus:border-blue-600"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+
+            {/* Sort Select */}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="border rounded-2xl px-5 py-4 bg-transparent outline-none focus:border-blue-600"
+            >
+              <option>Popular</option>
+              <option>Rating</option>
+              <option>Low to High</option>
+              <option>High to Low</option>
+            </select>
+
+            {/* Grid/List View Toggles */}
+            <div className="flex items-center justify-center gap-3 border rounded-2xl p-2">
+              <button
+                onClick={() => setView("grid")}
+                className={`p-3 rounded-xl transition ${
+                  view === "grid" ? "bg-blue-600 text-white" : "text-gray-400 hover:bg-slate-100"
+                }`}
               >
-                <option value="All">All Categories</option>
-                {categoriesData.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* 3. Brand */}
-            <div className="mb-5">
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
-              <select
-                className="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:bg-white cursor-pointer text-slate-700"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
+                <FaThLarge size={18} />
+              </button>
+              <button
+                onClick={() => setView("list")}
+                className={`p-3 rounded-xl transition ${
+                  view === "list" ? "bg-blue-600 text-white" : "text-gray-400 hover:bg-slate-100"
+                }`}
               >
-                {uniqueBrands.map((b) => (
-                  <option key={b} value={b}>{b === "All" ? "All Brands" : b}</option>
-                ))}
-              </select>
+                <FaList size={18} />
+              </button>
             </div>
 
-            {/* 4. Price Range */}
-            <div className="mb-5">
-              <div className="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                <span>Max Price</span>
-                <span className="text-blue-600 text-sm font-bold">${maxPrice}</span>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="3000"
-                step="50"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-blue-600 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-
-            {/* 5. Min Rating */}
-            <div className="mb-5">
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Rating</label>
-              <select
-                className="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:bg-white cursor-pointer text-slate-700"
-                value={minRating}
-                onChange={(e) => setMinRating(e.target.value)}
-              >
-                <option value="All">Any Rating</option>
-                <option value="4.5">⭐ 4.5 & Up</option>
-                <option value="4.0">⭐ 4.0 & Up</option>
-                <option value="3.5">⭐ 3.5 & Up</option>
-              </select>
-            </div>
-
-            {/* 6. In Stock Only */}
-            <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-              <input
-                type="checkbox"
-                id="stockToggle"
-                checked={inStockOnly}
-                onChange={(e) => setInStockOnly(e.target.checked)}
-                className="w-4 h-4 rounded accent-blue-600 border-slate-300 cursor-pointer"
-              />
-              <label htmlFor="stockToggle" className="text-sm font-medium text-slate-600 cursor-pointer select-none">
-                In Stock Only
-              </label>
-            </div>
           </div>
-
-          {/* MIDIG: Products Grid */}
-          <div className="flex-1">
-            {sortedProducts.length === 0 ? (
-              <div className="text-center text-slate-400 py-20 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                <p className="text-lg font-medium text-slate-600 mb-1">No products match your criteria</p>
-                <p className="text-sm">Try resetting your filters or changing your search phrase.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {sortedProducts.map((product) => (
-                  /* Halkan waxaan ku baasnay shaqooyinka (props) si ProductCard-ka 
-                    uu u yeesho awood uu alaabta ugu daro Cart, Wishlist ama u furo View.
-                  */
-                  <ProductCard 
-                    key={product.id} 
-                    product={product} 
-                    onView={() => handleViewProduct(product.id)}
-                    onAddToCart={() => addToCart && addToCart(product)}
-                    onToggleWishlist={() => toggleWishlist && toggleWishlist(product)}
-                    isWishlisted={wishlist.some(item => item.id === product.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-
         </div>
+
+        {/* Products Display Grid / List */}
+        {filteredProducts.length > 0 ? (
+          <div
+            className={
+              view === "grid"
+                ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+                : "flex flex-col gap-4"
+            }
+          >
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} view={view} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-3xl shadow-sm">
+            <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+          </div>
+        )}
+
       </div>
-    </div>
+    </section>
   );
 }
-
-export default Product;

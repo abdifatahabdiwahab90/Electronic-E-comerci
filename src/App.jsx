@@ -1,7 +1,7 @@
 import { Home } from "./Pages/Home";
 import About from "./Pages/About";
 import Product from "./Pages/Product";
-import Blog from "./Pages/Blog";
+import ProductDetails from "./Pages/ProductDetails";
 import Header from "./componant/Header";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
@@ -22,14 +22,15 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/product" element={<Product />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/blog" element={<Blog />} />
         
+
+            
         <Route path="/categories" element={<CategoryPage />} />
         
         <Route path="/categories/:categoryId" element={<Productcategory />} />
         
         <Route path="/products/:productId" element={<ProductView />} />
-        
+  
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-[#0b132b] text-gray-400 pt-16 pb-6 px-6 md:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-800 pb-12 mb-6">
         
-        {/* Newsletter & Branding */}
+       
         <div className="space-y-4 md:col-span-1">
           <div className="text-white font-bold text-xl tracking-wide">⚡ ElectroNext</div>
           <p className="text-sm text-gray-400 leading-relaxed">
@@ -19,7 +19,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Quick Links */}
+      
         <div>
           <h4 className="text-white text-sm font-semibold mb-4 tracking-wider uppercase">Products</h4>
           <ul className="space-y-2 text-xs">

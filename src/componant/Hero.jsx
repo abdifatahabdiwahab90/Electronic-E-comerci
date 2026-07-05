@@ -6,7 +6,7 @@ function Hero() {
     <section className="bg-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
 
-        {/* Left */}
+
         <div>
           <span className="text-blue-600 font-semibold">
             New Collection 2026
@@ -39,7 +39,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right */}
+       
         <div>
           <img
             src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
