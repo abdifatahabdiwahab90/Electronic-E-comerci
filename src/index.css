@@ -1,17 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-electric-50: #ecfeff;
-  --color-electric-100: #cffafe;
-  --color-electric-200: #a5f3fc;
-  --color-electric-400: #22d3ee;
-  --color-electric-500: #06b6d4;
-  --color-electric-600: #0891b2;
-  --color-electric-700: #0e7490;
-  --color-tech-900: #0a1628;
-  --color-tech-800: #0f2140;
-  --color-tech-700: #152d52;
+  --font-heading: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
 }
 
 * {
@@ -20,9 +14,14 @@
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   color: #0f172a;
-  background: #f0f7ff;
+  background: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-heading);
 }
 
 .page-container {
@@ -38,19 +37,19 @@ body {
 }
 
 .section-muted {
-  @apply bg-[#f0f7ff];
+  @apply bg-slate-50;
 }
 
 .section-dark {
-  @apply bg-[#0a1628] text-white;
+  @apply bg-slate-900 text-white;
 }
 
 .section-label {
-  @apply text-xs font-semibold uppercase tracking-[0.2em] text-cyan-600;
+  @apply font-heading text-xs font-semibold uppercase tracking-[0.2em] text-primary;
 }
 
 .page-title {
-  @apply text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl;
+  @apply font-heading text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl;
 }
 
 .page-subtitle {
@@ -58,28 +57,28 @@ body {
 }
 
 .section-title {
-  @apply text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl;
+  @apply font-heading text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl;
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition hover:from-cyan-400 hover:to-blue-500;
+  @apply inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-sm transition duration-300 hover:bg-primary-dark hover:shadow-md active:scale-[0.98];
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center rounded-full border border-cyan-200 bg-white px-7 py-3 text-sm font-medium text-cyan-700 transition hover:border-cyan-400 hover:bg-cyan-50;
+  @apply inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-7 py-3 text-sm font-medium text-slate-700 transition duration-300 hover:border-primary hover:text-primary hover:shadow-sm active:scale-[0.98];
 }
 
 .btn-accent {
-  @apply inline-flex items-center justify-center rounded-full bg-cyan-500 px-7 py-3 text-sm font-semibold text-white transition hover:bg-cyan-400;
+  @apply inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-sm transition duration-300 hover:bg-primary-dark hover:shadow-md active:scale-[0.98];
 }
 
 .btn-dark {
-  @apply inline-flex items-center justify-center rounded-full bg-[#0a1628] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#0f2140];
+  @apply inline-flex items-center justify-center rounded-xl bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-slate-800 active:scale-[0.98];
 }
 
 .search-input {
-  @apply w-full rounded-full border border-cyan-100 bg-white py-3.5 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition;
-  @apply focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15;
+  @apply w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition duration-300;
+  @apply focus:border-primary focus:ring-4 focus:ring-primary/10;
 }
 
 .product-grid {
@@ -91,15 +90,15 @@ body {
 }
 
 .card {
-  @apply rounded-2xl border border-cyan-100/80 bg-white shadow-sm;
+  @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm;
 }
 
 .card-hover {
-  @apply transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/10;
+  @apply transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5;
 }
 
 .image-box {
-  @apply flex items-center justify-center bg-gradient-to-b from-cyan-50/50 to-white p-8;
+  @apply flex items-center justify-center bg-slate-50 p-8;
 }
 
 .product-image-square {
@@ -111,13 +110,38 @@ body {
 }
 
 .product-badge {
-  @apply absolute rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm;
+  @apply absolute rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm;
 }
 
 .text-electric {
-  @apply text-cyan-600;
+  @apply text-primary;
 }
 
 .badge-electric {
-  @apply rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white;
+  @apply rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white;
+}
+
+@keyframes cart-flash-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cart-flash-enter {
+  animation: cart-flash-in 0.35s ease-out forwards;
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.heart-pop {
+  animation: heart-pop 0.35s ease-out;
 }

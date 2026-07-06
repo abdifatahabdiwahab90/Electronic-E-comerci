@@ -5,6 +5,7 @@ import ProductDetails from "./Pages/ProductDetails";
 import SearchResults from "./Pages/SearchResults";
 import Header from "./componant/Header";
 import ScrollToTop from "./componant/ScrollToTop";
+import CartToast from "./componant/CartToast";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
 import Wishlist from "./Pages/Wishlist"
@@ -16,9 +17,10 @@ import ProductView from "./componant/Productview";
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#f0f7ff]">
+    <div className="flex min-h-screen flex-col bg-slate-50">
       <ScrollToTop />
       <Header />
+      <CartToast />
 
       <main className="flex-1">
       <Routes>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cartItems: [],
+  cartFlash: null,
 };
 
 const cartSlice = createSlice({
@@ -22,6 +23,15 @@ const cartSlice = createSlice({
           quantity: 1,
         });
       }
+
+      state.cartFlash = {
+        id: action.payload.id,
+        name: action.payload.name,
+      };
+    },
+
+    clearCartFlash: (state) => {
+      state.cartFlash = null;
     },
 
     removeFromCart: (state, action) => {
@@ -52,6 +62,7 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
+  clearCartFlash,
   removeFromCart,
   increaseQty,
   decreaseQty,

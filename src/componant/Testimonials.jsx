@@ -2,19 +2,19 @@ import SectionHeader from "./SectionHeader";
 
 const reviews = [
   {
-    name: "Justin Taylor",
+    name: "abdifatah abdi",
     role: "Verified Buyer",
     text: "Exceptional quality and fast delivery. The laptop I ordered exceeded my expectations in every way.",
     stars: 5,
   },
   {
-    name: "Sarah Vance",
+    name: "abdisalam  abdi",
     role: "Tech Enthusiast",
     text: "Clean website, easy checkout, and genuine products. ElectroShop is now my go-to electronics store.",
     stars: 5,
   },
   {
-    name: "Michael K.",
+    name: "abdifatah abdi.",
     role: "Pro Gamer",
     text: "Great gaming gear selection with competitive prices. Customer support was helpful and responsive.",
     stars: 5,

@@ -54,11 +54,11 @@ function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Name</label>
-                  <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="John Doe" />
+                  <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="abdifatah abdi" />
                 </div>
                 <div>
                   <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Email</label>
-                  <input type="email" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="john@example.com" />
+                  <input type="email" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="abdifatah@example.com" />
                 </div>
               </div>
               <div>

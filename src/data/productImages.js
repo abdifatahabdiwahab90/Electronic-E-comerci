@@ -107,6 +107,8 @@ export const categoryProductImages = {
 
 export const fallbackImage = U("1496181133206-80ce9b88a853");
 
+export const heroImage = U("1496181133206-80ce9b88a853");
+
 export function getProductImage(catId, indexInCategory = 0) {
   const pool = categoryProductImages[catId];
   if (!pool?.length) return fallbackImage;

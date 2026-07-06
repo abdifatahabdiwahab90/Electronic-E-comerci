@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { toggleWishlist } from "../redux/wishlistSlice";
 import { useNavigate } from "react-router-dom";
-import { FaStar, FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaStar, FaHeart, FaShoppingCart, FaCheck } from "react-icons/fa";
 import ProductImage from "./ProductImage";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [justAdded, setJustAdded] = useState(false);
+  const [heartPop, setHeartPop] = useState(false);
 
   const wishlistItems = useSelector((state) => state.wishlist.items || []);
   const isFavorite = wishlistItems.some(
@@ -18,6 +21,19 @@ function ProductCard({ product }) {
 
   const handleViewDetails = () => {
     navigate(`/products/${product.id}`);
+  };
+
+  const handleWishlist = (e) => {
+    e.stopPropagation();
+    dispatch(toggleWishlist(product));
+    setHeartPop(true);
+    setTimeout(() => setHeartPop(false), 350);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1500);
   };
 
   const price =
@@ -36,27 +52,24 @@ function ProductCard({ product }) {
         />
 
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(toggleWishlist(product));
-          }}
-          aria-label="Add to wishlist"
-          className={`absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition ${
-            isFavorite ? "text-red-500" : "text-slate-500 hover:text-red-500"
-          }`}
+          onClick={handleWishlist}
+          aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+          className={`absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md transition-all duration-300 hover:scale-110 ${
+            isFavorite ? "text-red-500" : "text-slate-400 hover:text-red-500"
+          } ${heartPop ? "heart-pop" : ""}`}
         >
-          <FaHeart size={12} />
+          <FaHeart size={13} className={isFavorite ? "fill-current" : ""} />
         </button>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-cyan-600/70">
+        <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-primary/70">
           {product.brand || product.category}
         </p>
 
         <h3
           onClick={handleViewDetails}
-          className="mt-2 line-clamp-2 cursor-pointer text-[15px] font-medium leading-snug text-slate-900 transition hover:text-cyan-600"
+          className="mt-2 line-clamp-2 cursor-pointer font-heading text-[15px] font-semibold leading-snug text-slate-900 transition duration-200 hover:text-primary"
         >
           {product.name}
         </h3>
@@ -66,26 +79,37 @@ function ProductCard({ product }) {
           <span className="text-xs font-medium text-slate-600">{product.rating}</span>
         </div>
 
-        <p className="mt-4 text-xl font-bold tracking-tight text-[#0a1628]">${price}</p>
+        <p className="mt-4 font-heading text-xl font-bold tracking-tight text-slate-900">${price}</p>
 
         <div className="mt-auto flex gap-2 pt-6">
           <button
             onClick={handleViewDetails}
-            className="flex-1 rounded-full border border-cyan-200 py-2.5 text-xs font-medium text-cyan-700 transition hover:bg-cyan-50"
+            className="flex-1 rounded-xl border border-slate-200 py-2.5 text-xs font-medium text-slate-700 transition duration-200 hover:border-primary hover:text-primary"
           >
             Details
           </button>
           <button
-            onClick={() => dispatch(addToCart(product))}
-            disabled={outOfStock}
-            className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-semibold transition ${
+            onClick={handleAddToCart}
+            disabled={outOfStock || justAdded}
+            className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-all duration-300 ${
               outOfStock
                 ? "bg-slate-100 text-slate-400"
-                : "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20 hover:from-cyan-400 hover:to-blue-500"
+                : justAdded
+                  ? "bg-emerald-500 text-white"
+                  : "bg-primary text-white hover:bg-primary-dark hover:shadow-md active:scale-[0.98]"
             }`}
           >
-            <FaShoppingCart size={11} />
-            {outOfStock ? "Sold Out" : "Add"}
+            {justAdded ? (
+              <>
+                <FaCheck size={11} />
+                Added
+              </>
+            ) : (
+              <>
+                <FaShoppingCart size={11} />
+                {outOfStock ? "Sold Out" : "Add"}
+              </>
+            )}
           </button>
         </div>
       </div>
