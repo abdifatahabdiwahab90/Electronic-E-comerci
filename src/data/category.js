@@ -1,19 +1,21 @@
+import { categoryBgImages, getProductImage } from "./productImages";
+
 export const categoriesData = [
-  { id: "cat-1", name: "Smartphones", count: "5 products", bgImage: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" },
-  { id: "cat-2", name: "Laptops", count: "5 products", bgImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" },
-  { id: "cat-3", name: "Gaming", count: "5 products", bgImage: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500" },
-  { id: "cat-4", name: "Cameras", count: "5 products", bgImage: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500" },
-  { id: "cat-5", name: "Tablets", count: "5 products", bgImage: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500" },
-  { id: "cat-6", name: "Smart Watches", count: "5 products", bgImage: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500" },
-  { id: "cat-7", name: "TVs", count: "5 products", bgImage: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500" },
-  { id: "cat-8", name: "Headphones", count: "5 products", bgImage: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" },
-  { id: "cat-9", name: "Speakers", count: "5 products", bgImage: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500" },
-  { id: "cat-10", name: "Accessories", count: "5 products", bgImage: "https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500" },
-  { id: "cat-11", name: "Home Appliances", count: "5 products", bgImage: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500" },
-  { id: "cat-12", name: "Networking", count: "5 products", bgImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500" }
+  { id: "cat-1", name: "Smartphones", count: "5 products", bgImage: categoryBgImages["cat-1"] },
+  { id: "cat-2", name: "Laptops", count: "5 products", bgImage: categoryBgImages["cat-2"] },
+  { id: "cat-3", name: "Gaming", count: "5 products", bgImage: categoryBgImages["cat-3"] },
+  { id: "cat-4", name: "Cameras", count: "5 products", bgImage: categoryBgImages["cat-4"] },
+  { id: "cat-5", name: "Tablets", count: "5 products", bgImage: categoryBgImages["cat-5"] },
+  { id: "cat-6", name: "Smart Watches", count: "5 products", bgImage: categoryBgImages["cat-6"] },
+  { id: "cat-7", name: "TVs", count: "5 products", bgImage: categoryBgImages["cat-7"] },
+  { id: "cat-8", name: "Headphones", count: "5 products", bgImage: categoryBgImages["cat-8"] },
+  { id: "cat-9", name: "Speakers", count: "5 products", bgImage: categoryBgImages["cat-9"] },
+  { id: "cat-10", name: "Accessories", count: "5 products", bgImage: categoryBgImages["cat-10"] },
+  { id: "cat-11", name: "Home Appliances", count: "5 products", bgImage: categoryBgImages["cat-11"] },
+  { id: "cat-12", name: "Networking", count: "5 products", bgImage: categoryBgImages["cat-12"] }
 ];
 
-export const productsData = [
+const productsDataRaw = [
   
   {
     id: "p-101",
@@ -730,3 +732,16 @@ export const productsData = [
     description: "Unleash high-speed multi-gigabit bands to handle extensive high-definition VR streaming without buffering congestions."
   }
 ];
+
+const categoryImageIndex = {};
+
+export const productsData = productsDataRaw.map((product) => {
+  const index = categoryImageIndex[product.catId] ?? 0;
+  categoryImageIndex[product.catId] = index + 1;
+  return {
+    ...product,
+    image: getProductImage(product.catId, index),
+  };
+});
+
+export const TOTAL_PRODUCTS = productsData.length;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import products from "../data/products";
 import ProductCard from "./ProductCard";
 
@@ -5,31 +6,23 @@ function FeaturedProducts() {
   const featuredProducts = products.slice(0, 4);
 
   return (
-    <section className="max-w-7xl mx-auto py-16 px-5">
-
-      <div className="flex justify-between items-center mb-10">
-
-        <div>
-          <h2 className="text-4xl font-bold">
-            Featured Products
-          </h2>
-
-          <p className="text-gray-500 mt-2">
-            Discover our most popular electronics
-          </p>
+    <section className="section section-white">
+      <div className="page-container">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="section-label">Featured</p>
+            <h2 className="section-title mt-3">Most Popular</h2>
+            <p className="page-subtitle">Top-rated devices loved by our customers.</p>
+          </div>
+          <Link to="/product" className="btn-secondary shrink-0">View All</Link>
         </div>
 
+        <div className="product-grid">
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {featuredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
-      </div>
-
     </section>
   );
 }

@@ -1,25 +1,24 @@
 import products from "../data/products";
 import ProductCard from "./ProductCard";
+import SectionHeader from "./SectionHeader";
 
 function Favorites() {
   return (
-    <section className="max-w-7xl mx-auto py-16 px-6">
+    <section className="section section-white">
+      <div className="page-container">
+        <SectionHeader
+          label="Trending"
+          title="Customer Favorites"
+          subtitle="Devices our shoppers keep coming back for."
+          center
+        />
 
-      <h2 className="text-4xl font-bold text-center">
-        Customer Favorites
-      </h2>
-
-      <div className="grid md:grid-cols-4 gap-6 mt-10">
-
-        {products.slice(4,8).map((product)=>(
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
-
+        <div className="product-grid">
+          {products.slice(4, 8).map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
-
     </section>
   );
 }

@@ -1,0 +1,58 @@
+import { categoryProductImages } from "./productImages";
+
+export const promoBlogs = [
+  {
+    id: 1,
+    productId: "p-102",
+    tag: "Flash Sale",
+    title: "Galaxy S24 Ultra — Limited Time Offer",
+    excerpt: "Save 7% on Samsung's flagship with mobile AI, S Pen, and 200MP camera.",
+    image: categoryProductImages["cat-1"][1],
+    date: "Jul 2, 2026",
+  },
+  {
+    id: 2,
+    productId: "p-101",
+    tag: "New Arrival",
+    title: "iPhone 15 Pro Max — Titanium Design",
+    excerpt: "A17 Pro chip, 5x telephoto camera, and the strongest iPhone ever built.",
+    image: categoryProductImages["cat-1"][0],
+    date: "Jul 1, 2026",
+  },
+  {
+    id: 3,
+    productId: "p-204",
+    tag: "Editor's Pick",
+    title: "MacBook Air M3 — Power Redefined",
+    excerpt: "Ultra-thin laptop with all-day battery for work and creativity.",
+    image: categoryProductImages["cat-2"][3],
+    date: "Jun 28, 2026",
+  },
+  {
+    id: 4,
+    productId: "p-301",
+    tag: "Hot Deal",
+    title: "PlayStation 5 Slim — Next-Gen Gaming",
+    excerpt: "Lightning-fast SSD, ray tracing, and immersive DualSense haptics.",
+    image: categoryProductImages["cat-3"][0],
+    date: "Jun 25, 2026",
+  },
+  {
+    id: 5,
+    productId: "p-801",
+    tag: "Best Seller",
+    title: "Sony WH-1000XM5 — Studio Silence",
+    excerpt: "Industry-leading noise cancellation with crystal-clear call quality.",
+    image: categoryProductImages["cat-8"][0],
+    date: "Jun 22, 2026",
+  },
+  {
+    id: 6,
+    productId: "p-401",
+    tag: "Trending",
+    title: "Sony Alpha 7 IV — Pro Photography",
+    excerpt: "Full-frame mirrorless with 33MP sensor and cinematic 4K video.",
+    image: categoryProductImages["cat-4"][0],
+    date: "Jun 20, 2026",
+  },
+];

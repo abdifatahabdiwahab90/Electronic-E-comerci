@@ -1,56 +1,79 @@
-import { useParams } from "react-router-dom";
-import products from "../data/products";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaSearch, FaArrowRight } from "react-icons/fa";
+import { promoBlogs } from "../data/promos";
+import ProductImage from "../componant/ProductImage";
 
 export default function ProductDetails() {
-  const { id } = useParams();
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-  const product = products.find(
-    (item) => item.id === Number(id)
-  );
-
-  if (!product) {
-    return (
-      <h1 className="text-center text-3xl mt-20">
-        Product Not Found
-      </h1>
-    );
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/search?q=${encodeURIComponent(search.trim())}`);
+    }
+  };
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
-      <div className="grid md:grid-cols-2 gap-10">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-[500px] object-cover rounded-xl shadow-lg"
-        />
+    <section className="section section-white min-h-screen">
+      <div className="page-container max-w-3xl">
 
-        <div>
-          <p className="text-blue-600 font-semibold">
-            {product.category}
-          </p>
-
-          <h1 className="text-4xl font-bold mt-2">
-            {product.name}
-          </h1>
-
-          <p className="text-3xl text-green-600 font-bold mt-4">
-            ${product.price}
-          </p>
-
-          <p className="text-xl mt-3">
-            ⭐ {product.rating} / 5
-          </p>
-
-          <p className="mt-6 text-gray-600">
-            Premium electronic product with high quality,
-            excellent performance, and modern design.
-          </p>
-
-          <button className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg">
-            Add to Cart
-          </button>
+        <div className="mb-12 text-center">
+          <p className="section-label">Deals</p>
+          <h1 className="page-title mt-3">Promotions</h1>
+          <p className="page-subtitle mx-auto">Exclusive offers from our collection</p>
         </div>
+
+        <form onSubmit={handleSearch} className="relative mb-14">
+          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="search-input pr-28"
+          />
+          <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 btn-primary !px-5 !py-2 text-xs">
+            Search
+          </button>
+        </form>
+
+        <div className="space-y-4">
+          {promoBlogs.map((blog) => (
+            <article
+              key={blog.id}
+              onClick={() => navigate(`/products/${blog.productId}`)}
+              className="card card-hover flex cursor-pointer gap-5 overflow-hidden p-4"
+            >
+              <ProductImage
+                src={blog.image}
+                alt={blog.title}
+                tag={blog.tag}
+                className="h-28 w-28 shrink-0"
+                rounded="rounded-2xl"
+                badgeClassName="left-2 top-2 px-2 py-0.5 text-[9px]"
+              />
+
+              <div className="flex min-w-0 flex-1 flex-col justify-center">
+                <span className="text-[10px] text-slate-400">{blog.date}</span>
+
+                <h2 className="mt-2 line-clamp-1 text-sm font-medium text-slate-900">
+                  {blog.title}
+                </h2>
+
+                <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-500">
+                  {blog.excerpt}
+                </p>
+
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-cyan-600">
+                  View Details <FaArrowRight size={9} />
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
       </div>
     </section>
   );

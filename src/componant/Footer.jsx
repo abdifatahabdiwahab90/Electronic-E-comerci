@@ -1,64 +1,55 @@
-
-
-import React from 'react';
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0b132b] text-gray-400 pt-16 pb-6 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-800 pb-12 mb-6">
-        
-       
-        <div className="space-y-4 md:col-span-1">
-          <div className="text-white font-bold text-xl tracking-wide">⚡ ElectroNext</div>
-          <p className="text-sm text-gray-400 leading-relaxed">
-            Stay in the loop with cutting-edge deals and modern tech drops directly in your ecosystem inbox.
-          </p>
-          <div className="flex gap-2 pt-2 ">
-            <input type="email" placeholder="Your email..." className="bg-gray-800 text-white rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-blue-500" />
-            <button className="bg-blue-600 text-white font-semibold text-xs px-4 py-2 rounded-lg hover:bg-blue-700 transition">Join</button>
+    <footer className="border-t border-cyan-900/30 bg-[#0a1628] text-slate-400">
+      <div className="page-container py-16">
+
+        <div className="grid gap-12 md:grid-cols-4">
+          <div className="md:col-span-1">
+            <p className="text-lg font-bold">
+              <span className="text-cyan-400">Electro</span>
+              <span className="text-white">Shop</span>
+            </p>
+            <p className="mt-4 text-sm leading-relaxed">
+              Your trusted destination for premium electronics and cutting-edge smart devices.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Shop</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><Link to="/product" className="transition hover:text-cyan-300">All Products</Link></li>
+              <li><Link to="/categories" className="transition hover:text-cyan-300">Categories</Link></li>
+              <li><Link to="/productDetails" className="transition hover:text-cyan-300">Deals</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Company</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><Link to="/about" className="transition hover:text-cyan-300">About Us</Link></li>
+              <li><Link to="/contact" className="transition hover:text-cyan-300">Contact</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Support</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><Link to="/cart" className="transition hover:text-cyan-300">Shopping Cart</Link></li>
+              <li><Link to="/wishlist" className="transition hover:text-cyan-300">Wishlist</Link></li>
+            </ul>
           </div>
         </div>
 
-      
-        <div>
-          <h4 className="text-white text-sm font-semibold mb-4 tracking-wider uppercase">Products</h4>
-          <ul className="space-y-2 text-xs">
-            <li><a href="#" className="hover:text-white transition">Laptops & PCs</a></li>
-            <li><a href="#" className="hover:text-white transition">Smartphones</a></li>
-            <li><a href="#" className="hover:text-white transition">Audio Devices</a></li>
-            <li><a href="#" className="hover:text-white transition">Wearables</a></li>
-          </ul>
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-cyan-900/30 pt-8 text-sm md:flex-row">
+          <p>&copy; 2026 ElectroShop. All rights reserved.</p>
+          <div className="flex gap-6">
+            <span className="hover:text-cyan-300 cursor-pointer">Terms</span>
+            <span className="hover:text-cyan-300 cursor-pointer">Privacy</span>
+          </div>
         </div>
 
-        <div>
-          <h4 className="text-white text-sm font-semibold mb-4 tracking-wider uppercase">Company</h4>
-          <ul className="space-y-2 text-xs">
-            <li><a href="#" className="hover:text-white transition">About Us</a></li>
-            <li><a href="#" className="hover:text-white transition">Careers</a></li>
-            <li><a href="#" className="hover:text-white transition">Press Releases</a></li>
-            <li><a href="#" className="hover:text-white transition">Affiliates</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-white text-sm font-semibold mb-4 tracking-wider uppercase">Support</h4>
-          <ul className="space-y-2 text-xs">
-            <li><a href="#" className="hover:text-white transition">Help Center</a></li>
-            <li><a href="#" className="hover:text-white transition">Track Order</a></li>
-            <li><a href="#" className="hover:text-white transition">Returns & Exchanges</a></li>
-            <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-        <p>&copy; 2026 ElectroNext Marketplace. All rights reserved.</p>
-        <div className="flex gap-4">
-          <a href="#" className="hover:text-white">Terms</a>
-          <a href="#" className="hover:text-white">Privacy</a>
-          <a href="#" className="hover:text-white">Cookies</a>
-        </div>
       </div>
     </footer>
   );

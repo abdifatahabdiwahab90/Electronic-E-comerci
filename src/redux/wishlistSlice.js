@@ -7,10 +7,8 @@ const wishlistSlice = createSlice({
     toggleWishlist: (state, action) => {
       const itemIndex = state.items.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0) {
-        // Haddii ay horay u ku jirtay, ka saar
         state.items.splice(itemIndex, 1);
       } else {
-        // Haddii aysan ku jirin, ku dar
         state.items.push(action.payload);
       }
     },

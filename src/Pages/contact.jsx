@@ -11,94 +11,73 @@ function Contact() {
   };
 
   return (
-    <div className="bg-white min-h-screen py-16 px-4 md:px-6">
-      <div className="max-w-6xl mx-auto">
-        
-        <div className="text-center max-w-xl mx-auto mb-16">
-          <h1 className="text-4xl font-black text-gray-900 mb-4">Nala Soo Xiriir</h1>
-          <p className="text-gray-500">
-            Waxaad qabtaa su'aal ku saabsan alaabta? Mise waxaad u baahan tahay caawinaad farsamo? Fariin noogu reeb foomka hoose.
+    <section className="section section-white min-h-screen">
+      <div className="page-container max-w-5xl">
+
+        <div className="mb-14 text-center">
+          <p className="section-label">Get in Touch</p>
+          <h1 className="page-title mt-3">Contact Us</h1>
+          <p className="page-subtitle mx-auto max-w-lg">
+            Have a question? Our team is here to help with orders, products, and support.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-          
-          {/* MIDIG/BIDIX: Xogta xiriirka (Contact Info) */}
-          <div className="lg:col-span-1 space-y-4">
-            <div className="bg-gray-50 border border-gray-150 p-6 rounded-2xl flex items-start gap-4">
-              <div className="bg-blue-50 p-3 rounded-xl text-blue-600">
-                <FaPhoneAlt size={20} />
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="space-y-4">
+            {[
+              { icon: FaPhoneAlt, title: "Phone", lines: ["+252 61 XXXXXXX", "+252 62 XXXXXXX"] },
+              { icon: FaEnvelope, title: "Email", lines: ["support@electroshop.com", "sales@electroshop.com"] },
+              { icon: FaMapMarkerAlt, title: "Office", lines: ["Km4, Maka Al-mukarama Rd", "Mogadishu, Somalia"] },
+            ].map(({ icon: Icon, title, lines }) => (
+              <div key={title} className="card flex gap-4 p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-700">
+                  <Icon size={16} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-slate-900">{title}</h3>
+                  {lines.map((line) => (
+                    <p key={line} className="mt-1 text-sm text-slate-500">{line}</p>
+                  ))}
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-base">Taleefanka</h3>
-                <p className="text-gray-500 text-sm mt-1">+252 61 XXXXXXX</p>
-                <p className="text-gray-500 text-sm">+252 62 XXXXXXX</p>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 border border-gray-150 p-6 rounded-2xl flex items-start gap-4">
-              <div className="bg-blue-50 p-3 rounded-xl text-blue-600">
-                <FaEnvelope size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-base">Email-ka Na caawi</h3>
-                <p className="text-gray-500 text-sm mt-1">support@techstore.com</p>
-                <p className="text-gray-500 text-sm">sales@techstore.com</p>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 border border-gray-150 p-6 rounded-2xl flex items-start gap-4">
-              <div className="bg-blue-50 p-3 rounded-xl text-blue-600">
-                <FaMapMarkerAlt size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 text-base">Xafiiska Dhabta ah</h3>
-                <p className="text-gray-500 text-sm mt-1">Km4 Area, Wadada Maka Al-mukarama</p>
-                <p className="text-gray-500 text-sm">Mogadishu, Somalia</p>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* FOOMKA: Farriin dirista (Message Form) */}
-          <div className="lg:col-span-2 bg-gray-50 border border-gray-150 p-6 md:p-8 rounded-3xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Noo Soo Dir Farriin</h2>
-            
+          <div className="card p-8 lg:col-span-2">
             {submitted && (
-              <div className="bg-green-100 text-green-700 p-4 rounded-xl mb-6 font-medium text-sm">
-                Waad ku mahadsan tahay nala soo xiriirkaaga! Fariintaadu si guul ah ayay noogu soo gaartay.
+              <div className="mb-6 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                Thank you! Your message has been sent successfully.
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">Magacaaga</label>
-                  <input type="text" required className="w-full mt-1 p-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-blue-600" placeholder="Ahmad Mahamed" />
+                  <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Name</label>
+                  <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="John Doe" />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">Email-kaaga</label>
-                  <input type="email" required className="w-full mt-1 p-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-blue-600" placeholder="ahmad@example.com" />
+                  <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Email</label>
+                  <input type="email" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="john@example.com" />
                 </div>
               </div>
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase">Dulucda Fariinta (Subject)</label>
-                <input type="text" required className="w-full mt-1 p-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-blue-600" placeholder="Su'aal ku saabsan dammaanadda laptop" />
+                <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Subject</label>
+                <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="How can we help?" />
               </div>
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase">Farriintaada</label>
-                <textarea rows="5" required className="w-full mt-1 p-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-blue-600" placeholder="Halkaan ku qor fariintaada oo faahfaahsan..."></textarea>
+                <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Message</label>
+                <textarea rows="5" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Your message..." />
               </div>
-              
-              <button type="submit" className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition font-bold flex items-center justify-center gap-2">
-                <FaPaperPlane size={14} /> Dir Farriinta
+              <button type="submit" className="btn-primary gap-2">
+                <FaPaperPlane size={12} /> Send Message
               </button>
             </form>
           </div>
-
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
