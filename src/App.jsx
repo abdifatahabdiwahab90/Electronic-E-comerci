@@ -9,7 +9,7 @@ import CartToast from "./componant/CartToast";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
 import Wishlist from "./Pages/Wishlist";
-import Contact from "./Pages/Contact";
+import Contact from "./Pages/ContactUs";
 import Footer from "./componant/Footer";
 import CategoryPage from "./Pages/Category";
 import Productcategory from "./componant/Productcategory";
