@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { addActivity, STORAGE_EVENT } from "./productStore";
+import { addActivity, deductStock, STORAGE_EVENT } from "./productStore";
 
 export const ORDERS_KEY = "electroOrders";
 
@@ -44,6 +44,11 @@ export function getOrdersByEmail(email) {
 }
 
 export function createOrder({ customerName, customerEmail, items, paymentMethod, shippingAddress }) {
+  const stockResult = deductStock(items);
+  if (stockResult.error) {
+    return { error: stockResult.error };
+  }
+
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const order = {
     id: `ORD-${Date.now()}`,

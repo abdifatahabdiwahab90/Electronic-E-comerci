@@ -141,6 +141,37 @@ export function deleteProduct(id) {
   if (removed) addActivity(`Deleted: ${removed.name}`, "product");
 }
 
+export function deductStock(orderItems) {
+  const products = readProducts();
+
+  for (const item of orderItems) {
+    const product = products.find((p) => p.id === item.id);
+    if (!product) return { error: `Product not found: ${item.name}` };
+
+    const currentStock = product.stock ?? 0;
+    if (currentStock < item.quantity) {
+      return {
+        error: `Not enough stock for ${product.name}. Available: ${currentStock}`,
+      };
+    }
+  }
+
+  const updated = products.map((p) => {
+    const ordered = orderItems.find((i) => i.id === p.id);
+    if (!ordered) return p;
+
+    const newStock = (p.stock ?? 0) - ordered.quantity;
+    return {
+      ...p,
+      stock: newStock,
+      badge: newStock === 0 ? "OUT OF STOCK" : p.badge,
+    };
+  });
+
+  writeProducts(updated);
+  return { success: true };
+}
+
 export function useProductStore() {
   const [products, setProducts] = useState(() => getProducts());
   const [categories, setCategories] = useState(() => getCategories());

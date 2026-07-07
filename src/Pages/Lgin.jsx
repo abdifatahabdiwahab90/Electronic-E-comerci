@@ -75,7 +75,6 @@ function AuthLogin() {
                 </div>
               </div>
               <button type="submit" className="w-full rounded-xl bg-primary py-3 text-sm font-semibold text-white hover:bg-primary-dark">Sign In</button>
-              <p className="text-center text-xs text-slate-400">Admin demo: admin@electroshop.com / admin123</p>
             </form>
           ) : (
             <form onSubmit={handleSignup} className="space-y-5">

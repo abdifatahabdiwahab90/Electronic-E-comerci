@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useProductStore } from "../data/productStore";
 import SectionHeader from "./SectionHeader";
 
 const FeaturedCategories = () => {
   const navigate = useNavigate();
   const { categories } = useProductStore();
+  const featuredCategories = categories.slice(0, 4);
 
   return (
     <section className="section section-muted">
@@ -16,7 +17,7 @@ const FeaturedCategories = () => {
         />
 
         <div className="category-grid">
-          {categories.map((cat) => (
+          {featuredCategories.map((cat) => (
             <button
               key={cat.id}
               type="button"
@@ -38,6 +39,12 @@ const FeaturedCategories = () => {
               </div>
             </button>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <Link to="/categories" className="btn-secondary inline-flex items-center gap-2">
+            View All Categories
+          </Link>
         </div>
       </div>
     </section>

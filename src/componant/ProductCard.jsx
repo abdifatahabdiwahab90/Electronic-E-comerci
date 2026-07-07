@@ -17,7 +17,7 @@ function ProductCard({ product }) {
     (item) => String(item.id) === String(product.id)
   );
 
-  const outOfStock = product.badge === "OUT OF STOCK";
+  const outOfStock = product.badge === "OUT OF STOCK" || (product.stock ?? 0) === 0;
 
   const handleViewDetails = () => {
     navigate(`/products/${product.id}`);

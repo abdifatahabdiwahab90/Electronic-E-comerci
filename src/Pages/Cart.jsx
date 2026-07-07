@@ -13,6 +13,7 @@ function Cart() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [showCheckout, setShowCheckout] = useState(false);
   const [checkoutDone, setCheckoutDone] = useState(null);
+  const [checkoutError, setCheckoutError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", address: "", paymentMethod: "EVC Plus" });
 
   const totalPrice = cartItems.reduce((t, item) => t + item.price * item.quantity, 0);
@@ -22,14 +23,28 @@ function Cart() {
     if (session && session.role !== "admin") {
       setForm((f) => ({ ...f, name: session.name, email: session.email }));
     }
+    setCheckoutError("");
     setShowCheckout(true);
   };
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    const order = createOrder({ customerName: form.name, customerEmail: form.email, items: cartItems, paymentMethod: form.paymentMethod, shippingAddress: form.address });
+    setCheckoutError("");
+    const result = createOrder({
+      customerName: form.name,
+      customerEmail: form.email,
+      items: cartItems,
+      paymentMethod: form.paymentMethod,
+      shippingAddress: form.address,
+    });
+
+    if (result?.error) {
+      setCheckoutError(result.error);
+      return;
+    }
+
     dispatch(clearCart());
-    setCheckoutDone(order);
+    setCheckoutDone(result);
     setShowCheckout(false);
   };
 
@@ -104,6 +119,11 @@ function Cart() {
             <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl">
               <h2 className="text-lg font-bold">Checkout</h2>
               <p className="mt-1 text-sm text-slate-500">Total: ${totalPrice.toFixed(2)}</p>
+              {checkoutError && (
+                <div className="mt-4 rounded-xl bg-red-50 p-4 text-sm font-medium text-red-600">
+                  {checkoutError}
+                </div>
+              )}
               <form onSubmit={handleCheckout} className="mt-5 space-y-4">
                 <div><label className="text-sm font-medium">Full Name</label><input required className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
                 <div><label className="text-sm font-medium">Email</label><input type="email" required className="mt-1 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>
