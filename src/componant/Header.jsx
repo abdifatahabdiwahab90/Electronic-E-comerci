@@ -8,6 +8,7 @@ const NAV_LINKS = [
   ["/", "Home"],
   ["/product", "Shop"],
   ["/categories", "Categories"],
+ 
   ["/about", "About"],
   ["/contact", "Contact"],
 ];

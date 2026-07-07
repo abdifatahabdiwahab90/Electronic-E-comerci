@@ -29,7 +29,7 @@ function CTASection() {
           <div className="flex flex-col sm:flex-row justify-center gap-5 mt-10">
 
             <Link
-              to="/products"
+              to="/product"
               className="bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition flex items-center justify-center gap-3"
             >
               Shop Now

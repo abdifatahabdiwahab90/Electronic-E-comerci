@@ -1,52 +1,48 @@
 import { Link } from "react-router-dom";
-import { heroImage } from "../data/productImages";
 
 function Hero() {
   return (
-    <section className="bg-white py-16 lg:py-24">
-      <div className="page-container grid items-center gap-10 lg:grid-cols-2">
+    <section className="bg-gray-100">
+      <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
 
         {/* Left */}
         <div>
-          <span className="text-primary font-semibold uppercase tracking-widest text-sm">
+          <span className="text-blue-600 font-semibold">
             New Collection 2026
           </span>
 
-          <h1 className="mt-4 text-4xl lg:text-6xl font-bold leading-tight text-slate-900">
-            Premium
-            <span className="block text-primary">
-              Electronics
-            </span>
+          <h1 className="text-5xl font-bold mt-4 leading-tight">
+            Discover The Latest
+            <span className="text-blue-600"> Electronics</span>
           </h1>
 
-          <p className="mt-6 max-w-md text-lg text-slate-600">
-            Discover the latest smartphones, laptops, accessories and more.
-            High quality products at affordable prices.
+          <p className="text-gray-600 mt-6 text-lg">
+            Shop premium smartphones, laptops, headphones, gaming accessories,
+            smart watches, and more with amazing prices.
           </p>
 
           <div className="mt-8 flex gap-4">
             <Link
               to="/product"
-              className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:opacity-90"
+              className="bg-blue-600 text-white px-7 py-3 rounded-lg hover:bg-blue-700"
             >
               Shop Now
             </Link>
 
             <Link
-              to="/categories"
-              className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-100"
+              to="/about"
+              className="border border-blue-600 text-blue-600 px-7 py-3 rounded-lg hover:bg-blue-600 hover:text-white"
             >
-              Categories
+              Learn More
             </Link>
           </div>
         </div>
 
-        {/* Right */}
-        <div className="flex justify-center">
+        <div>
           <img
-            src={heroImage}
+            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
             alt="Electronics"
-            className="w-full max-w-md object-contain"
+            className="rounded-2xl shadow-lg w-full"
           />
         </div>
 
