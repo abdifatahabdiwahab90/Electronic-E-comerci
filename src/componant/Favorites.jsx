@@ -1,8 +1,10 @@
-import products from "../data/products";
+import { useProductStore } from "../data/productStore";
 import ProductCard from "./ProductCard";
 import SectionHeader from "./SectionHeader";
 
 function Favorites() {
+  const { products } = useProductStore();
+
   return (
     <section className="section section-white">
       <div className="page-container">

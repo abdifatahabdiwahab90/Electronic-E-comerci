@@ -1,19 +1,20 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import { productsData, categoriesData } from "../data/category";
-
-const categoryNames = Object.fromEntries(
-  categoriesData.map((cat) => [cat.id, cat.name])
-);
+import { useProductStore } from "../data/productStore";
 import ProductCard from "../componant/ProductCard";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { products, categories } = useProductStore();
   const query = searchParams.get("q") || "";
 
+  const categoryNames = Object.fromEntries(
+    categories.map((cat) => [cat.id, cat.name])
+  );
+
   const results = query
-    ? productsData.filter((item) => {
+    ? products.filter((item) => {
         const term = query.toLowerCase();
         return (
           item.name?.toLowerCase().includes(term) ||

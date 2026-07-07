@@ -3,17 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { toggleWishlist } from "../redux/wishlistSlice";
 import { FaStar, FaHeart, FaArrowLeft, FaShoppingCart } from "react-icons/fa";
-import { productsData } from "../data/category";
+import { useProductStore, getCategoryName } from "../data/productStore";
 import ProductImage from "./ProductImage";
 
 function Productview() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { products } = useProductStore();
 
   const wishlistItems = useSelector((state) => state.wishlist.items || []);
 
-  const product = productsData.find(
+  const product = products.find(
     (item) => String(item.id) === String(productId)
   );
 
@@ -30,7 +31,7 @@ function Productview() {
     (item) => String(item.id) === String(product.id)
   );
 
-  const outOfStock = product.badge === "OUT OF STOCK";
+  const outOfStock = product.badge === "OUT OF STOCK" || (product.stock ?? 0) === 0;
   const price = product.price.toLocaleString();
 
   return (
@@ -84,7 +85,7 @@ function Productview() {
 
             <div className="flex flex-col justify-center p-8 lg:p-12">
               <p className="text-xs font-medium uppercase tracking-[0.15em] text-slate-400">
-                {product.brand} · {product.category}
+                {product.brand} · {getCategoryName(product.catId)}
               </p>
 
               <h1 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 lg:text-3xl">
@@ -94,7 +95,7 @@ function Productview() {
               <div className="mt-4 flex items-center gap-2">
                 <FaStar className="text-amber-400" size={14} />
                 <span className="text-sm font-medium text-slate-600">{product.rating}</span>
-                {product.reviews && (
+                {product.reviews != null && (
                   <span className="text-sm text-slate-400">({product.reviews} reviews)</span>
                 )}
               </div>
@@ -106,7 +107,9 @@ function Productview() {
               </p>
 
               <p className="mt-8 text-xs font-medium uppercase tracking-wider text-slate-400">
-                {outOfStock ? "Out of stock" : "In stock — ships within 2-3 days"}
+                {outOfStock
+                  ? "Out of stock"
+                  : `${product.stock ?? 0} in stock — ships within 2-3 days`}
               </p>
             </div>
 

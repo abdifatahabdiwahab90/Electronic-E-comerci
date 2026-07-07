@@ -1,3 +1,1 @@
-import { productsData } from "./category";
-
-export default productsData;
+export { getProducts as default, getProducts, useProductStore } from "./productStore";

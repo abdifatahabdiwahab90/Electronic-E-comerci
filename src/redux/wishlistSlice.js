@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loadUserWishlist } from "../data/userStorage";
 
 const wishlistSlice = createSlice({
   name: "wishlist",
-  initialState: { items: [] },
+  initialState: { items: loadUserWishlist() },
   reducers: {
+    hydrateWishlist: (state, action) => {
+      state.items = action.payload;
+    },
     toggleWishlist: (state, action) => {
-      const itemIndex = state.items.findIndex(item => item.id === action.payload.id);
-      if (itemIndex >= 0) {
-        state.items.splice(itemIndex, 1);
-      } else {
-        state.items.push(action.payload);
-      }
+      const idx = state.items.findIndex((item) => item.id === action.payload.id);
+      if (idx >= 0) state.items.splice(idx, 1);
+      else state.items.push(action.payload);
     },
     removeFromWishlist: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
-    }
-  }
+      state.items = state.items.filter((item) => item.id !== action.payload);
+    },
+  },
 });
 
-export const { toggleWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { hydrateWishlist, toggleWishlist, removeFromWishlist } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

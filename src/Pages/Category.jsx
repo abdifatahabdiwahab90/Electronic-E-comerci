@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { categoriesData, TOTAL_PRODUCTS } from "../data/category";
+import { useProductStore } from "../data/productStore";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
+  const { categories, totalProducts } = useProductStore();
 
   return (
     <section className="section section-muted min-h-screen">
@@ -12,12 +13,12 @@ const CategoryPage = () => {
           <p className="section-label">Browse</p>
           <h1 className="page-title mt-3">Categories</h1>
           <p className="page-subtitle">
-            {TOTAL_PRODUCTS} products across {categoriesData.length} categories
+            {totalProducts} products across {categories.length} categories
           </p>
         </div>
 
         <div className="category-grid">
-          {categoriesData.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"

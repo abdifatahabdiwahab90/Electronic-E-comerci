@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import products from "../data/products";
+import { useProductStore } from "../data/productStore";
 import ProductCard from "./ProductCard";
 import SectionHeader from "./SectionHeader";
 
 export default function NewProduct() {
-  const newArrivals = products.slice(12, 16);
+  const { products } = useProductStore();
+  const newArrivals = [...products].slice(-4).reverse();
 
   return (
     <section className="section section-muted">

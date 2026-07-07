@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import products from "../data/products";
+import { useProductStore } from "../data/productStore";
 import ProductCard from "./ProductCard";
 
 function FeaturedProducts() {
+  const { products } = useProductStore();
   const featuredProducts = products.slice(0, 4);
 
   return (

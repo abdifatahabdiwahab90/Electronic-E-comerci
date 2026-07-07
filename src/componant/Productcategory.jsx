@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
-import { productsData, categoriesData } from "../data/category";
+import { useProductStore } from "../data/productStore";
 import ProductCard from "./ProductCard";
 
 const Products = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
+  const { products, categories } = useProductStore();
 
-  const currentCategory = categoriesData.find(
+  const currentCategory = categories.find(
     (c) => String(c.id) === String(categoryId)
   );
 
@@ -18,7 +19,7 @@ const Products = () => {
     setSearchTerm("");
   }, [categoryId]);
 
-  const filteredProducts = productsData.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const matchesCategory = String(product.catId) === String(categoryId);
     const matchesSearch =
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

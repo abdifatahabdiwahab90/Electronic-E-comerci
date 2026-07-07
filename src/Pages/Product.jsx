@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { productsData, categoriesData, TOTAL_PRODUCTS } from "../data/category";
+import { useProductStore } from "../data/productStore";
 import ProductCard from "../componant/ProductCard";
 
 export default function Products() {
+  const { products, categories, totalProducts } = useProductStore();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
-  const filteredProducts = productsData.filter((item) => {
+  const filteredProducts = products.filter((item) => {
     const matchSearch =
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.brand?.toLowerCase().includes(search.toLowerCase());
@@ -23,7 +24,7 @@ export default function Products() {
           <p className="section-label">Catalog</p>
           <h1 className="page-title mt-3">Shop</h1>
           <p className="page-subtitle">
-            Showing {filteredProducts.length} of {TOTAL_PRODUCTS} products
+            Showing {filteredProducts.length} of {totalProducts} products
           </p>
         </div>
 
@@ -44,7 +45,7 @@ export default function Products() {
             className="rounded-full border border-slate-200 bg-white px-5 py-3.5 text-sm font-medium text-slate-700 shadow-sm outline-none focus:border-blue-500 sm:w-48"
           >
             <option value="All">All</option>
-            {categoriesData.map((cat) => (
+            {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>

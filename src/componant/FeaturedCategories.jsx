@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { categoriesData } from "../data/category";
+import { useProductStore } from "../data/productStore";
 import SectionHeader from "./SectionHeader";
 
 const FeaturedCategories = () => {
   const navigate = useNavigate();
+  const { categories } = useProductStore();
 
   return (
     <section className="section section-muted">
@@ -11,11 +12,11 @@ const FeaturedCategories = () => {
         <SectionHeader
           label="Collections"
           title="Shop by Category"
-          subtitle="Browse our curated electronics across eight specialized categories."
+          subtitle="Browse our curated electronics across specialized categories."
         />
 
         <div className="category-grid">
-          {categoriesData.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
