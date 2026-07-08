@@ -9,12 +9,15 @@ import {
   FaExclamationTriangle,
   FaClock,
   FaLayerGroup,
+  FaHeadset,
 } from "react-icons/fa";
 import AdminProductView from "./AdminProductview";
 import AdminOrderView from "./AdminOrderView";
 import AdminPaymentsList from "./AdminPaymentsList";
+import AdminCustomerCare from "./AdminCustomerCare";
 import { useProductStore } from "../data/productStore";
 import { useOrderStore, formatMoney as formatOrderMoney } from "../data/orderStore";
+import { useContactStore } from "../data/contactStore";
 import { getSession, clearSession, isAdmin } from "../data/authStore";
 
 function AdminPortal() {
@@ -23,6 +26,7 @@ function AdminPortal() {
   const navigate = useNavigate();
   const { stats, activity, categories } = useProductStore();
   const { stats: orderStats } = useOrderStore();
+  const { stats: contactStats } = useContactStore();
 
   useEffect(() => {
     const stored = getSession();
@@ -104,6 +108,7 @@ function AdminPortal() {
               { id: "products", label: "Products", icon: FaBox },
               { id: "orders", label: "Orders", icon: FaShoppingBag },
               { id: "payments", label: "Payments", icon: FaCreditCard },
+              { id: "customer-care", label: "Customer Care", icon: FaHeadset },
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -116,6 +121,11 @@ function AdminPortal() {
                 {id === "products" && (
                   <span className="ml-auto rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
                     {stats.productCount}
+                  </span>
+                )}
+                {id === "customer-care" && contactStats.new > 0 && (
+                  <span className="ml-auto rounded-full bg-blue-500 px-2 py-0.5 text-xs font-bold text-white">
+                    {contactStats.new}
                   </span>
                 )}
               </button>
@@ -241,6 +251,7 @@ function AdminPortal() {
         {activeTab === "products" && <AdminProductView />}
         {activeTab === "orders" && <AdminOrderView />}
         {activeTab === "payments" && <AdminPaymentsList />}
+        {activeTab === "customer-care" && <AdminCustomerCare />}
       </main>
     </div>
   );

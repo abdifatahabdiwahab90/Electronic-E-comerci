@@ -3,6 +3,7 @@ import { categoriesData as SEED_CATEGORIES, productsData as SEED_PRODUCTS } from
 import { getProductImage } from "./productImages";
 
 export const PRODUCTS_KEY = "electroProducts";
+export const PRODUCTS_INIT_KEY = "electroProductsInit";
 export const ACTIVITY_KEY = "electroActivity";
 export const STORAGE_EVENT = "electro-data-updated";
 
@@ -10,25 +11,49 @@ function dispatchUpdate() {
   window.dispatchEvent(new CustomEvent(STORAGE_EVENT));
 }
 
-function readProducts() {
-  try {
-    const stored = localStorage.getItem(PRODUCTS_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch {
-    /* ignore */
-  }
-
-  const seeded = SEED_PRODUCTS.map((p, i) => ({
+function seedProducts() {
+  return SEED_PRODUCTS.map((p, i) => ({
     ...p,
     stock: 10 + (i % 25),
   }));
-  localStorage.setItem(PRODUCTS_KEY, JSON.stringify(seeded));
+}
+
+function readProducts() {
+  const initialized = localStorage.getItem(PRODUCTS_INIT_KEY) === "true";
+
+  try {
+    const stored = localStorage.getItem(PRODUCTS_KEY);
+    if (stored !== null) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {
+    /* fall through — only re-seed on first visit */
+  }
+
+  if (initialized) {
+    return [];
+  }
+
+  const seeded = seedProducts();
+  writeProducts(seeded);
   return seeded;
 }
 
 function writeProducts(products) {
-  localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
-  dispatchUpdate();
+  try {
+    localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+    localStorage.setItem(PRODUCTS_INIT_KEY, "true");
+    dispatchUpdate();
+    return { success: true };
+  } catch (err) {
+    const isQuota = err?.name === "QuotaExceededError";
+    return {
+      error: isQuota
+        ? "Storage is full. Use a smaller image or delete unused products."
+        : "Could not save products. Please try again.",
+    };
+  }
 }
 
 export function getProducts() {
@@ -129,7 +154,8 @@ export function addProduct({ name, brand, catId, price, stock, description, imag
     image: image?.trim() || getProductImage(catId, catProducts.length),
     description: description?.trim() || `${name.trim()} — available at ElectroShop.`,
   };
-  writeProducts([...products, newProduct]);
+  const result = writeProducts([...products, newProduct]);
+  if (result.error) return { error: result.error };
   addActivity(`New product: ${newProduct.name}`, "product");
   return newProduct;
 }
@@ -137,8 +163,26 @@ export function addProduct({ name, brand, catId, price, stock, description, imag
 export function deleteProduct(id) {
   const products = readProducts();
   const removed = products.find((p) => p.id === id);
-  writeProducts(products.filter((p) => p.id !== id));
+  const result = writeProducts(products.filter((p) => p.id !== id));
+  if (result.error) return { error: result.error };
   if (removed) addActivity(`Deleted: ${removed.name}`, "product");
+  return { success: true };
+}
+
+export function updateProduct(id, { name, image }) {
+  const products = readProducts();
+  const idx = products.findIndex((p) => p.id === id);
+  if (idx === -1) return { error: "Product not found." };
+
+  const updated = { ...products[idx] };
+  if (name !== undefined) updated.name = name.trim();
+  if (image !== undefined) updated.image = image.trim() || updated.image;
+
+  products[idx] = updated;
+  const result = writeProducts(products);
+  if (result.error) return { error: result.error };
+  addActivity(`Updated: ${updated.name}`, "product");
+  return updated;
 }
 
 export function deductStock(orderItems) {
@@ -184,6 +228,10 @@ export function useProductStore() {
   }, []);
 
   useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  useEffect(() => {
     const onStorage = (e) => {
       if (e.key === PRODUCTS_KEY || e.key === ACTIVITY_KEY) refresh();
     };
@@ -199,16 +247,27 @@ export function useProductStore() {
 
   const add = useCallback(
     (data) => {
-      addProduct(data);
-      refresh();
+      const result = addProduct(data);
+      if (!result?.error) refresh();
+      return result;
     },
     [refresh]
   );
 
   const remove = useCallback(
     (id) => {
-      deleteProduct(id);
-      refresh();
+      const result = deleteProduct(id);
+      if (!result?.error) refresh();
+      return result;
+    },
+    [refresh]
+  );
+
+  const update = useCallback(
+    (id, data) => {
+      const result = updateProduct(id, data);
+      if (!result?.error) refresh();
+      return result;
     },
     [refresh]
   );
@@ -221,6 +280,7 @@ export function useProductStore() {
     totalProducts: products.length,
     addProduct: add,
     deleteProduct: remove,
+    updateProduct: update,
     refresh,
   };
 }

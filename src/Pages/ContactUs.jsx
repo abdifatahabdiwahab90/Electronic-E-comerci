@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
+import { useContactStore } from "../data/contactStore";
 
 function Contact() {
+  const { submitContact } = useContactStore();
   const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    submitContact(form);
     setSubmitted(true);
+    setForm({ name: "", email: "", subject: "", message: "" });
     setTimeout(() => setSubmitted(false), 4000);
   };
 
@@ -46,7 +51,7 @@ function Contact() {
           <div className="card p-8 lg:col-span-2">
             {submitted && (
               <div className="mb-6 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-                Thank you! Your message has been sent successfully.
+                Thank you! Your message has been sent successfully. Our team will get back to you soon.
               </div>
             )}
 
@@ -54,20 +59,48 @@ function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Name</label>
-                  <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="abdifatah abdi" />
+                  <input
+                    type="text"
+                    required
+                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
                 </div>
                 <div>
                   <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Email</label>
-                  <input type="email" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="abdifatah@example.com" />
+                  <input
+                    type="email"
+                    required
+                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500"
+                    placeholder="you@example.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  />
                 </div>
               </div>
               <div>
                 <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Subject</label>
-                <input type="text" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="How can we help?" />
+                <input
+                  type="text"
+                  required
+                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500"
+                  placeholder="How can we help?"
+                  value={form.subject}
+                  onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                />
               </div>
               <div>
                 <label className="text-xs font-medium uppercase tracking-wider text-slate-500">Message</label>
-                <textarea rows="5" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Your message..." />
+                <textarea
+                  rows="5"
+                  required
+                  className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-blue-500"
+                  placeholder="Your message..."
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                />
               </div>
               <button type="submit" className="btn-primary gap-2">
                 <FaPaperPlane size={12} /> Send Message

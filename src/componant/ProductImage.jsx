@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fallbackImage } from "../data/productImages";
 
 export function getBadgeStyle(product) {
@@ -66,6 +66,10 @@ function ProductImage({
 }) {
   const initialSrc = src || product?.image || product?.images?.[0] || fallbackImage;
   const [imageSrc, setImageSrc] = useState(initialSrc);
+
+  useEffect(() => {
+    setImageSrc(src || product?.image || product?.images?.[0] || fallbackImage);
+  }, [src, product?.image, product?.images]);
   const altText = alt || product?.name || "Product";
   const badge = tag ? getTagStyle(tag) : getBadgeStyle(product);
 

@@ -49,7 +49,7 @@ function TeamSection() {
             />
 
             <h3 className="text-xl font-bold mt-6">
-               Abdifitah Abdi
+               Abdifitah Abdiwahaab
             </h3>
 
             <p className="text-blue-600 font-medium mt-2">
