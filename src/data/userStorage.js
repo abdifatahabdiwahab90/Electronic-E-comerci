@@ -1,41 +1,5 @@
-import { getSession } from "./authStore";
-
-export function getUserId() {
-  return getSession()?.email || "guest";
-}
-
-export function userKey(prefix) {
-  return `${prefix}_${getUserId()}`;
-}
-
-export function loadUserList(prefix) {
-  try {
-    const raw = localStorage.getItem(userKey(prefix));
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveUserList(prefix, data) {
-  localStorage.setItem(userKey(prefix), JSON.stringify(data));
-}
-
-export const CART_PREFIX = "electroCart";
-export const WISHLIST_PREFIX = "electroWishlist";
-
-export function loadUserCart() {
-  return loadUserList(CART_PREFIX);
-}
-
-export function saveUserCart(items) {
-  saveUserList(CART_PREFIX, items);
-}
-
-export function loadUserWishlist() {
-  return loadUserList(WISHLIST_PREFIX);
-}
-
-export function saveUserWishlist(items) {
-  saveUserList(WISHLIST_PREFIX, items);
-}
+import { api } from "./api";
+export async function loadUserCart() { try { return (await api("/basket")).cart || []; } catch { return []; } }
+export async function loadUserWishlist() { try { return (await api("/basket")).wishlist || []; } catch { return []; } }
+export async function saveUserCart(cart) { try { const basket = await api("/basket"); await api("/basket", { method: "PUT", body: JSON.stringify({ cart, wishlist: basket.wishlist || [] }) }); } catch { /* guests are intentionally not persisted */ } }
+export async function saveUserWishlist(wishlist) { try { const basket = await api("/basket"); await api("/basket", { method: "PUT", body: JSON.stringify({ cart: basket.cart || [], wishlist }) }); } catch { /* guests are intentionally not persisted */ } }

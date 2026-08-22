@@ -6,6 +6,8 @@ import SearchResults from "./Pages/SearchResults";
 import Header from "./componant/Header";
 import ScrollToTop from "./componant/ScrollToTop";
 import CartToast from "./componant/CartToast";
+import UserStorageSync from "./componant/UserStorageSync";
+import ApiStatusBanner from "./componant/ApiStatusBanner";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./Pages/Cart";
 import Wishlist from "./Pages/Wishlist";
@@ -24,6 +26,8 @@ function App() {
     <div className="flex min-h-screen flex-col bg-slate-50">
       <ScrollToTop />
       <CartToast />
+      <UserStorageSync />
+      <ApiStatusBanner />
 
       <Routes>
         <Route path="/login" element={<Login />} />

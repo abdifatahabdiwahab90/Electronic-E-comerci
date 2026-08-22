@@ -15,8 +15,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { getSession, clearSession } from "../data/authStore";
-import { getOrdersByEmail, ORDER_STATUSES, getStatusMeta, formatOrderDate, formatMoney } from "../data/orderStore";
-import { STORAGE_EVENT } from "../data/productStore";
+import { useOrderStore, ORDER_STATUSES, getStatusMeta, formatOrderDate, formatMoney } from "../data/orderStore";
 import ProductImage from "../componant/ProductImage";
 
 function getInitials(name) {
@@ -68,7 +67,7 @@ function OrderTracker({ status }) {
 
 function MyOrders() {
   const [session, setSessionState] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const { orders, refresh } = useOrderStore({ mine: true });
   const [activeTab, setActiveTab] = useState("orders");
   const navigate = useNavigate();
 
@@ -84,11 +83,8 @@ function MyOrders() {
     }
 
     setSessionState(s);
-    const load = () => setOrders(getOrdersByEmail(s.email));
-    load();
-    window.addEventListener(STORAGE_EVENT, load);
-    return () => window.removeEventListener(STORAGE_EVENT, load);
-  }, [navigate]);
+    refresh();
+  }, [navigate, refresh]);
 
   if (!session) return null;
 

@@ -5,11 +5,17 @@ import { useContactStore } from "../data/contactStore";
 function Contact() {
   const { submitContact } = useContactStore();
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    submitContact(form);
+    setError("");
+    const result = await submitContact(form);
+    if (result?.error) {
+      setError(result.error);
+      return;
+    }
     setSubmitted(true);
     setForm({ name: "", email: "", subject: "", message: "" });
     setTimeout(() => setSubmitted(false), 4000);
@@ -52,6 +58,11 @@ function Contact() {
             {submitted && (
               <div className="mb-6 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
                 Thank you! Your message has been sent successfully. Our team will get back to you soon.
+              </div>
+            )}
+            {error && (
+              <div className="mb-6 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+                {error}
               </div>
             )}
 

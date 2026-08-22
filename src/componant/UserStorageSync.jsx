@@ -6,8 +6,10 @@ import { AUTH_EVENT } from "../data/authStore";
 import { loadUserCart, loadUserWishlist } from "../data/userStorage";
 
 function syncUserData(dispatch) {
-  dispatch(hydrateCart(loadUserCart()));
-  dispatch(hydrateWishlist(loadUserWishlist()));
+  Promise.all([loadUserCart(), loadUserWishlist()]).then(([cart, wishlist]) => {
+    dispatch(hydrateCart(cart));
+    dispatch(hydrateWishlist(wishlist));
+  });
 }
 
 export default function UserStorageSync() {

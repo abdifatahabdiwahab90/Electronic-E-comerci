@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadUserCart } from "../data/userStorage";
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    cartItems: loadUserCart(),
+    cartItems: [],
     cartFlash: null,
   },
   reducers: {

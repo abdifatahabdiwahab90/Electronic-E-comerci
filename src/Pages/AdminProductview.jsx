@@ -62,13 +62,13 @@ function AdminProductView() {
     setShowModal(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let result;
     if (editingId) {
-      result = updateProduct(editingId, { name: form.name, image: form.image });
+      result = await updateProduct(editingId, { name: form.name, image: form.image });
     } else {
-      result = addProduct(form);
+      result = await addProduct(form);
     }
     if (result?.error) {
       alert(result.error);
@@ -78,9 +78,9 @@ function AdminProductView() {
     setShowModal(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (!window.confirm("Delete this product?")) return;
-    const result = deleteProduct(id);
+    const result = await deleteProduct(id);
     if (result?.error) alert(result.error);
   };
 

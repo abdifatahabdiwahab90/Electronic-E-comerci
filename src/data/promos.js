@@ -1,4 +1,4 @@
-import { categoryProductImages } from "./productImages";
+import { getProductImageById } from "./productImages";
 
 export const promoBlogs = [
   {
@@ -7,7 +7,7 @@ export const promoBlogs = [
     tag: "Flash Sale",
     title: "Galaxy S24 Ultra — Limited Time Offer",
     excerpt: "Save 7% on Samsung's flagship with mobile AI, S Pen, and 200MP camera.",
-    image: categoryProductImages["cat-1"][1],
+    image: getProductImageById("p-102"),
     date: "Jul 2, 2026",
   },
   {
@@ -16,7 +16,7 @@ export const promoBlogs = [
     tag: "New Arrival",
     title: "iPhone 15 Pro Max — Titanium Design",
     excerpt: "A17 Pro chip, 5x telephoto camera, and the strongest iPhone ever built.",
-    image: categoryProductImages["cat-1"][0],
+    image: getProductImageById("p-101"),
     date: "Jul 1, 2026",
   },
   {
@@ -25,7 +25,7 @@ export const promoBlogs = [
     tag: "Editor's Pick",
     title: "MacBook Air M3 — Power Redefined",
     excerpt: "Ultra-thin laptop with all-day battery for work and creativity.",
-    image: categoryProductImages["cat-2"][3],
+    image: getProductImageById("p-204"),
     date: "Jun 28, 2026",
   },
   {
@@ -34,7 +34,7 @@ export const promoBlogs = [
     tag: "Hot Deal",
     title: "PlayStation 5 Slim — Next-Gen Gaming",
     excerpt: "Lightning-fast SSD, ray tracing, and immersive DualSense haptics.",
-    image: categoryProductImages["cat-3"][0],
+    image: getProductImageById("p-301"),
     date: "Jun 25, 2026",
   },
   {
@@ -43,7 +43,7 @@ export const promoBlogs = [
     tag: "Best Seller",
     title: "Sony WH-1000XM5 — Studio Silence",
     excerpt: "Industry-leading noise cancellation with crystal-clear call quality.",
-    image: categoryProductImages["cat-8"][0],
+    image: getProductImageById("p-801"),
     date: "Jun 22, 2026",
   },
   {
@@ -52,7 +52,7 @@ export const promoBlogs = [
     tag: "Trending",
     title: "Sony Alpha 7 IV — Pro Photography",
     excerpt: "Full-frame mirrorless with 33MP sensor and cinematic 4K video.",
-    image: categoryProductImages["cat-4"][0],
+    image: getProductImageById("p-401"),
     date: "Jun 20, 2026",
   },
 ];

@@ -1,4 +1,4 @@
-import { categoryBgImages, getProductImage } from "./productImages";
+import { categoryBgImages, getProductImageById } from "./productImages.js";
 
 export const categoriesData = [
   { id: "cat-1", name: "Smartphones", count: "5 products", bgImage: categoryBgImages["cat-1"] },
@@ -733,15 +733,9 @@ const productsDataRaw = [
   }
 ];
 
-const categoryImageIndex = {};
-
-export const productsData = productsDataRaw.map((product) => {
-  const index = categoryImageIndex[product.catId] ?? 0;
-  categoryImageIndex[product.catId] = index + 1;
-  return {
-    ...product,
-    image: getProductImage(product.catId, index),
-  };
-});
+export const productsData = productsDataRaw.map((product) => ({
+  ...product,
+  image: getProductImageById(product.id),
+}));
 
 export const TOTAL_PRODUCTS = productsData.length;

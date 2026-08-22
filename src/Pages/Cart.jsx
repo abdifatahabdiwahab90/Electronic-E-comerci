@@ -27,10 +27,10 @@ function Cart() {
     setShowCheckout(true);
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
     setCheckoutError("");
-    const result = createOrder({
+    const result = await createOrder({
       customerName: form.name,
       customerEmail: form.email,
       items: cartItems,

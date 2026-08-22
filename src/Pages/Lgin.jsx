@@ -17,20 +17,20 @@ function AuthLogin() {
     setName(""); setEmail(""); setPassword(""); setConfirmPassword(""); setError(""); setSuccess("");
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    const session = loginUser(email, password);
+    const session = await loginUser(email, password);
     if (session) navigate(getRedirectPath(session));
     else setError("Invalid email or password. Please try again.");
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError(""); setSuccess("");
     if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
     if (password !== confirmPassword) { setError("Passwords do not match."); return; }
-    const result = registerUser({ name, email, password });
+    const result = await registerUser({ name, email, password });
     if (result.error) { setError(result.error); return; }
     setSuccess("Account created! You can now sign in.");
     setMode("login"); setPassword(""); setConfirmPassword("");

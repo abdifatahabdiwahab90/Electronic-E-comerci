@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadUserWishlist } from "../data/userStorage";
 
 const wishlistSlice = createSlice({
   name: "wishlist",
-  initialState: { items: loadUserWishlist() },
+  initialState: { items: [] },
   reducers: {
     hydrateWishlist: (state, action) => {
       state.items = action.payload;

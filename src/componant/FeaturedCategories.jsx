@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useProductStore } from "../data/productStore";
 import SectionHeader from "./SectionHeader";
+import CategoryImage from "./CategoryImage";
 
 const FeaturedCategories = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const FeaturedCategories = () => {
               className="card card-hover group overflow-hidden text-left"
             >
               <div className="image-box relative h-56 p-8">
-                <img
+                <CategoryImage
                   src={cat.bgImage}
                   alt={cat.name}
                   className="max-h-full max-w-full object-contain transition duration-500 group-hover:scale-105"

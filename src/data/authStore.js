@@ -1,84 +1,50 @@
-export const USERS_KEY = "electroUsers";
-export const SESSION_KEY = "electroSession";
+import { api, setApiToken } from "./api";
+
 export const AUTH_EVENT = "electro-auth-change";
+const SESSION_KEY = "electro-session";
+const TOKEN_KEY = "electro-token";
 
-const defaultUsers = [
-  { name: "Admin", email: "admin@electroshop.com", password: "admin123", role: "admin" },
-];
-
-export function notifyAuthChange() {
-  window.dispatchEvent(new CustomEvent(AUTH_EVENT));
-}
-
-export function getUsers() {
+function loadSession() {
   try {
-    const stored = localStorage.getItem(USERS_KEY);
-    if (!stored) {
-      localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
-      return defaultUsers;
-    }
-    const users = JSON.parse(stored);
-    return users.map((u) => ({
-      ...u,
-      role: u.role || (u.email === "admin@electroshop.com" ? "admin" : "customer"),
-    }));
+    const savedSession = window.localStorage.getItem(SESSION_KEY);
+    const savedToken = window.localStorage.getItem(TOKEN_KEY);
+    if (!savedSession || !savedToken) return null;
+    setApiToken(savedToken);
+    return JSON.parse(savedSession);
   } catch {
-    localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
-    return defaultUsers;
-  }
-}
-
-export function saveUsers(users) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
-
-export function getSession() {
-  try {
-    const stored = localStorage.getItem(SESSION_KEY);
-    return stored ? JSON.parse(stored) : null;
-  } catch {
+    window.localStorage.removeItem(SESSION_KEY);
+    window.localStorage.removeItem(TOKEN_KEY);
     return null;
   }
 }
 
-export function setSession(user) {
-  const session = {
-    name: user.name,
-    email: user.email,
-    role: user.role || "customer",
-  };
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-  notifyAuthChange();
-  return session;
-}
+let currentSession = loadSession();
 
+export function notifyAuthChange() { window.dispatchEvent(new CustomEvent(AUTH_EVENT)); }
+export function getSession() { return currentSession; }
+export function setSession(user, token) {
+  currentSession = { name: user.name, email: user.email, role: user.role || "customer" };
+  window.localStorage.setItem(SESSION_KEY, JSON.stringify(currentSession));
+  window.localStorage.setItem(TOKEN_KEY, token);
+  setApiToken(token);
+  notifyAuthChange();
+  return currentSession;
+}
 export function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
+  currentSession = null;
+  window.localStorage.removeItem(SESSION_KEY);
+  window.localStorage.removeItem(TOKEN_KEY);
+  setApiToken(null);
   notifyAuthChange();
 }
+export function isAdmin(session) { return session?.role === "admin"; }
 
-export function isAdmin(session) {
-  return session?.role === "admin";
+export async function loginUser(email, password) {
+  try { const { user, token } = await api("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) }); return setSession(user, token); } catch { return null; }
 }
 
-export function loginUser(email, password) {
-  const users = getUsers();
-  const user = users.find((u) => u.email === email.trim() && u.password === password);
-  if (!user) return null;
-  return setSession(user);
+export async function registerUser(data) {
+  try { const user = await api("/auth/register", { method: "POST", body: JSON.stringify(data) }); return user; } catch (error) { return { error: error.message }; }
 }
 
-export function registerUser({ name, email, password }) {
-  const users = getUsers();
-  const trimmedEmail = email.trim();
-  if (users.some((u) => u.email === trimmedEmail)) {
-    return { error: "This email is already registered." };
-  }
-  const newUser = { name: name.trim(), email: trimmedEmail, password, role: "customer" };
-  saveUsers([...users, newUser]);
-  return { user: newUser };
-}
-
-export function getRedirectPath(session) {
-  return isAdmin(session) ? "/admin-portal" : "/my-orders";
-}
+export function getRedirectPath(session) { return isAdmin(session) ? "/admin-portal" : "/my-orders"; }

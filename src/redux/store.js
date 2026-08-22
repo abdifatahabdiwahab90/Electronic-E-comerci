@@ -9,13 +9,11 @@ const CART_ACTIONS = new Set([
   "cart/increaseQty",
   "cart/decreaseQty",
   "cart/clearCart",
-  "cart/hydrateCart",
 ]);
 
 const WISHLIST_ACTIONS = new Set([
   "wishlist/toggleWishlist",
   "wishlist/removeFromWishlist",
-  "wishlist/hydrateWishlist",
 ]);
 
 const persistMiddleware = (store) => (next) => (action) => {
